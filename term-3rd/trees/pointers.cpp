@@ -5,8 +5,7 @@ void Example() {
     string food = "Pizza";
     string* ptr = &food;
 
-    cout << food << "-" << ptr << "-" << *ptr << endl;
-    
+    cout << food << "-" << ptr << "-" << *ptr << endl;    
     food = "Hotdog";
     cout << food << "-" << ptr << "-" << *ptr << endl;
 }

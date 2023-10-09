@@ -1,4 +1,4 @@
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int P = 1e6 + 3;
@@ -8,7 +8,7 @@ struct HashTable {
 
 public:
     void insert(int key, int value) {
-        int hkey = getHash(key);\
+        int hkey = getHash(key);
 
         for (auto p : h[hkey]) {
             if (p.first == key) {
