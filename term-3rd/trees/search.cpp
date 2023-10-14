@@ -24,7 +24,3 @@ int SearchBinary(vector<int> nums, int target) {
     }
     return -1;
 }
-
-int main() {
-
-}
