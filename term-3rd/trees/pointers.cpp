@@ -1,16 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void Example() {
+void Example()
+{
     string food = "Pizza";
-    string* ptr = &food;
+    string *ptr = &food;
 
-    cout << food << "-" << ptr << "-" << *ptr << endl;    
+    cout << food << "-" << ptr << "-" << *ptr << endl;
     food = "Hotdog";
     cout << food << "-" << ptr << "-" << *ptr << endl;
 }
 
-int main(){
+int main()
+{
     Example();
     return 0;
 }

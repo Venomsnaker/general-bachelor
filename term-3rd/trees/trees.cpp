@@ -7,57 +7,67 @@ struct TreeNode
     TreeNode *left;
     TreeNode *right;
 
-    TreeNode(int data) {
+    TreeNode(int data)
+    {
         this->data = data;
         left = right = NULL;
     }
 };
 
-class BinaryTree {
+class BinaryTree
+{
 public:
-// Recursive Tree Traversals
-// Time Complexity: O(n)
-// Space Complexity: O(1)
-    vector<int> inorderTraversal(TreeNode* root) {
+    // Recursive Tree Traversals
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    vector<int> inorderTraversal(TreeNode *root)
+    {
         vector<int> nodes;
         helper(root, nodes);
         return nodes;
     }
 
-    vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> preorderTraversal(TreeNode *root)
+    {
         vector<int> nodes;
         helper(root, nodes);
         return nodes;
     }
 
-    vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> postorderTraversal(TreeNode *root)
+    {
         vector<int> nodes;
         helper(root, nodes);
         return nodes;
     }
 
-    vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> levelOrder(TreeNode *root)
+    {
         // Time Complexity: O(n)
         // Space Complexity: O(n)
         vector<vector<int>> res;
-        queue<TreeNode*> temp;
+        queue<TreeNode *> temp;
         temp.push(root);
 
-        while (!temp.empty()) {
+        while (!temp.empty())
+        {
             int curLen = temp.size();
             vector<int> curLevel;
 
-            for (int i = 0; i < curLen; i++) {
+            for (int i = 0; i < curLen; i++)
+            {
                 TreeNode *node = temp.front();
                 temp.pop();
-                if (node != NULL) {
+                if (node != NULL)
+                {
                     curLevel.push_back(node->data);
                     temp.push(node->left);
                     temp.push(node->right);
                 }
             }
 
-            if (curLevel.size()) {
+            if (curLevel.size())
+            {
                 res.push_back(curLevel);
             }
         }
@@ -65,8 +75,10 @@ public:
     }
 
 private:
-    void helper(TreeNode* root, vector<int> &nodes) {
-        if (!root) return;
+    void helper(TreeNode *root, vector<int> &nodes)
+    {
+        if (!root)
+            return;
 
         helper(root->left, nodes);
         nodes.push_back(root->data);
@@ -74,12 +86,15 @@ private:
     }
 };
 
-void TraverseInorder(struct TreeNode* root) {
-    stack <TreeNode*> s;
-    TreeNode* curr = root;
+void TraverseInorder(struct TreeNode *root)
+{
+    stack<TreeNode *> s;
+    TreeNode *curr = root;
 
-    while (curr != NULL || s.empty() == false) {
-        while (curr != NULL) {
+    while (curr != NULL || s.empty() == false)
+    {
+        while (curr != NULL)
+        {
             s.push(curr);
             curr = curr->left;
         }
@@ -91,6 +106,7 @@ void TraverseInorder(struct TreeNode* root) {
     }
 }
 
-int main() {
+int main()
+{
     return 0;
 }
