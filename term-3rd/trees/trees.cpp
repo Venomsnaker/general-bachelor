@@ -74,6 +74,42 @@ public:
         return res;
     }
 
+    int maxDepth(TreeNode *node) {
+        if (node == NULL) return 0;
+        else {
+            int lDepth = maxDepth(node->left);
+            int rDepth = maxDepth(node->right);
+
+            if (lDepth > rDepth) return (lDepth + 1);
+            else return (rDepth + 1);
+        }
+    }
+
+    void printGivenLevel(node* root, int level); 
+int height(node* node); 
+
+    void reverseLevelOrder(*node root) 
+{ 
+    int h = height(root); 
+    int i; 
+    for (i=h; i>=1; i--) //THE ONLY LINE DIFFERENT FROM NORMAL LEVEL ORDER 
+        printGivenLevel(root, i); 
+} 
+ 
+/* Print nodes at a given level */
+void printGivenLevel(*node root, int level) 
+{ 
+    if (root == NULL) 
+        return; 
+    if (level == 1) 
+        cout << root->data << " "; 
+    else if (level > 1) 
+    { 
+        printGivenLevel(root->left, level - 1); 
+        printGivenLevel(root->right, level - 1); 
+    } 
+} 
+
 private:
     void helper(TreeNode *root, vector<int> &nodes)
     {
