@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void Example(char *s) {
+void Example(char *s)
+{
     // Some c functions that work with char*
     printf("Upper: %s \n", strupr(s));
     printf("Lower: %s \n", strlwr(s));
@@ -11,7 +12,8 @@ void Example(char *s) {
     printf("Love ~ love, %d \n", stricmp("Love", "love"));
 }
 
-void CopyString(char *s) {
+void CopyString(char *s)
+{
     char s2[100];
     char *s3;
     strcpy(s2, s);
@@ -23,15 +25,18 @@ void CopyString(char *s) {
     free(s3);
 }
 
-void SeparateString(char *s) {
+void SeparateString(char *s)
+{
     char *p = strtok(s, " ");
-    while (p != NULL) {
+    while (p != NULL)
+    {
         printf("%s \n", p);
         p = strtok(NULL, " ");
     }
 }
 
-void SearchSubstring(char *s) {
+void SearchSubstring(char *s)
+{
     char *p;
     p = strchr(s, 's');
     printf("%s \n");
@@ -39,18 +44,21 @@ void SearchSubstring(char *s) {
     printf("%s \n");
 }
 
-void InsertString(char *s, char *sub) {
+void InsertString(char *s, char *sub)
+{
     int n = strlen(sub);
     memmove(s + n, s, strlen(s));
     strncpy(s, sub, n);
     printf("%s \n", s);
 }
 
-void DeleteString(char *s, int n) {
+void DeleteString(char *s, int n)
+{
     memmove(s, s + n, strlen(s + n) + 1);
 }
 
-int main() {
+int main()
+{
     char *s = strdup("Wes're so f");
     char *i = strdup("Rip ");
     InsertString(s, i);

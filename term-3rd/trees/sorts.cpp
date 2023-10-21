@@ -12,13 +12,6 @@ void PrintVector(vector<int> nums)
     cout << endl;
 }
 
-void Swap(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
 void SortBubble(vector<int> &nums)
 {
     // Time Complexity: O(n^2)
@@ -31,7 +24,7 @@ void SortBubble(vector<int> &nums)
         {
             if (nums[i] > nums[j])
             {
-                Swap(nums[i], nums[j]);
+                swap(nums[i], nums[j]);
             }
         }
     }
@@ -55,7 +48,7 @@ void SortSelection(vector<int> &nums)
 
         if (idx != i)
         {
-            Swap(nums[idx], nums[i]);
+            swap(nums[idx], nums[i]);
         }
     }
 }
@@ -138,24 +131,25 @@ void SortMerge(vector<int> &nums, int l, int r)
     Merge(nums, l, m, r);
 }
 
-void Heapify(vector<int> nums, int n, int i)
+void Heapify(vector<int> &nums, int n, int i)
 {
-    int largest = i, l = 2 * i + 1, r = 2 * i + 2;
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
 
     if (l < n && nums[l] > nums[largest])
         largest = l;
-
     if (r < n && nums[r] > nums[largest])
         largest = r;
 
     if (largest != i)
     {
-        Swap(nums[i], nums[largest]);
+        swap(nums[i], nums[largest]);
         Heapify(nums, n, largest);
     }
 }
 
-void SortHeap(vector<int> nums)
+void SortHeap(vector<int> &nums)
 {
     // Time Complexity: O(nlog(n))
     // Space Complexity: O(1)
@@ -166,59 +160,34 @@ void SortHeap(vector<int> nums)
         Heapify(nums, n, i);
     }
 
-    for (int i = n - 1; i > 0; i--)
+    for (int i = n - 1; i >= 0; i--)
     {
-        Swap(nums[0], nums[i]);
+        swap(nums[0], nums[i]);
         Heapify(nums, i, 0);
     }
 }
 
-int Partition(vector<int> nums, int l, int r)
+int Partition(vector<int> &nums, int l, int r)
 {
-    int idx = 0, pivotEle = nums[r], pivotIdx;
-    int *temp = new int[r - l + 1];
+    int pivot = nums[r];
+    int i = l - 1;
 
-    // val < pivot
-    for (int i = l; i <= r; i++)
+    for (int j = l; j < r; j++)
     {
-        if (nums[i] < pivotEle)
+        if (nums[j] <= pivot)
         {
-            temp[idx] = nums[i];
-            idx++;
+            i++;
+            swap(nums[i], nums[j]);
         }
     }
-
-    temp[idx] = pivotEle;
-    idx++;
-
-    // val > pivot
-    for (int i = l; i <= r; i++)
-    {
-        if (nums[i] > pivotEle)
-        {
-            temp[idx] = nums[i];
-            idx++;
-        }
-    }
-
-    // Assign nums with temp
-    idx = 0;
-    for (int i = l; i <= r; i++)
-    {
-        if (nums[i] == pivotEle)
-        {
-            pivotIdx = i;
-        }
-        nums[i] = temp[idx];
-        idx++;
-    }
-    return pivotIdx;
+    swap(nums[i + 1], nums[r]);
+    return i + 1;
 }
 
-void SortQuick(vector<int> nums, int l, int r)
+void SortQuick(vector<int> &nums, int l, int r)
 {
     // Time Complexity: O(nlog(n))
-    // Space Complexity: O(n)
+    // Space Complexity: O(log(n))
     if (l < r)
     {
         int partitionIdx = Partition(nums, l, r);
@@ -230,49 +199,52 @@ void SortQuick(vector<int> nums, int l, int r)
 
 int GetMax(vector<int> nums, int n)
 {
-    int mx = nums[0];
+    int max = nums[0];
 
     for (int i = 1; i < n; i++)
     {
-        if (nums[i] > mx)
-            mx = nums[i];
+        if (nums[i] > max)
+            max = nums[i];
     }
-    return mx;
+    return max;
 }
 
-void CountSort(vector<int> nums, int n, int exp)
+void CountSort(vector<int> &nums, int n, int exp)
 {
+    const int max = 10;
     int output[n];
-    int i, count[10] = {0};
+    int count[max];
 
+    // Initialize count array
+    for (int i = 0; i < max; i++)
+        count[i] = 0;
+
+    // Calculate count of elements
     for (int i = 0; i < n; i++)
-    {
         count[(nums[i] / exp) % 10]++;
-    }
 
-    for (i = 1; i < 10; i++)
-    {
-        count[i] = count[i - 1];
-    }
+    // Calculate cumulative count | shift one element upward
+    for (int i = 1; i < max; i++)
+        count[i] += count[i - 1];
 
-    for (i = n - 1; i >= 0; i--)
+    // Place the elements in sorted order
+    for (int i = n - 1; i >= 0; i--)
     {
         output[count[(nums[i] / exp) % 10] - 1] = nums[i];
         count[(nums[i] / exp) % 10]--;
     }
 
-    for (i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++)
         nums[i] = output[i];
-    }
 }
 
-void SortRadix(vector<int> nums, int n)
+void SortRadix(vector<int> &nums, int n)
 {
-    // Time Complexity: O(kn)
-    // Space Complexity: O(d + n)
-    int mx = GetMax(nums, n);
-    for (int exp = 1; mx / exp > 0; exp *= 10)
+    // Time Complexity: O(n * k)
+    // Space Complexity: O(n + k)
+    int max = GetMax(nums, n);
+
+    for (int exp = 1; max / exp > 0; exp *= 10)
         CountSort(nums, n, exp);
 }
 
@@ -280,7 +252,7 @@ int main()
 {
     vector<int> nums = {2, 3, 6, 4, 5, 2, 8, 7, 9, 1};
     PrintVector(nums);
-    SortMerge(nums, 0, nums.size() - 1);
+    SortRadix(nums, nums.size());
     PrintVector(nums);
     return 0;
 }
