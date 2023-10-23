@@ -25,6 +25,39 @@ class BinaryTree {
             return newNode;
         }
 
+        void DeleteNode(int val) {
+            if (root == NULL) return;
+
+            if (root->left == NULL && root->right == NULL) {
+                if (root->val == val) return;
+                else return;
+            }
+
+            queue<Node*> q;
+            q.push(root);
+            Node* temp;
+            Node* d_node = NULL;
+
+            while (!q.empty()) {
+                temp = q.front();
+                q.pop();
+
+                if (temp->val == val) {
+                    d_node = temp;
+                }
+
+                if(temp->left) q.push(temp->left);
+                if (temp->right) q.push(temp->right);
+            }
+
+            if (d_node != NULL) {
+                int x = temp->val;
+                DeleteDeepestNode(temp);
+                d_node->val = x;
+            }
+            return;
+        }
+
         void InsertNode(int val) {
             if (root == NULL) {
                 root = CreateNode(val);
@@ -58,6 +91,19 @@ class BinaryTree {
             for (int i = 0; i < nodes.size(); i++) cout << nodes[i] << endl;
         }
 
+        int MaxDepth(Node* node) {
+            if (node == NULL) return 0;
+            else {
+                int lDepth = MaxDepth(node->left);
+                int rDepth = MaxDepth(node->right);
+                if (lDepth > rDepth) {
+                    return (lDepth + 1);
+                }else {
+                    return (rDepth + 1);
+                }
+            }
+        }
+
     private:
         // All basic traversal types
         // Time Complexity: O(n)
@@ -81,6 +127,41 @@ class BinaryTree {
             PostorderTraversal(root->left, nodes);
             nodes.push_back(root->val);
             PostorderTraversal(root->right, nodes);
+        }
+
+        void DeleteDeepestNode(struct Node* d_node) {
+            queue<Node*> q;
+            Node* temp;
+            q.push(root);
+
+            // Level order traversal until the last node
+            while (!q.empty()) {
+                if (temp == d_node) {
+                    temp = NULL;
+                    delete(d_node);
+                    return;
+                }
+
+                if (temp->right) {
+                    if (temp->right == d_node) {
+                        temp->right = NULL;
+                        delete(d_node);
+                        return;
+                    } else {
+                        q.push(temp->right);
+                    }
+                }
+
+                if (temp->left) {
+                    if (temp->left == d_node) {
+                        temp->left = NULL;
+                        delete(d_node);
+                        return;
+                    } else {
+                        q.push(temp->left);
+                    }
+                }
+            }
         }
 };
 
