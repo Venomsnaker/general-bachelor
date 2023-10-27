@@ -1,4 +1,5 @@
 library(readxl)
+# 22120128 - Bui Quoc Huy
 
 # Bai 1
     sum_to_x <- function(nums, x) {
@@ -46,9 +47,9 @@ library(readxl)
         if (cols[1] > 80) return(3)
     }
 
-    display_task3 <- function() {
+    display_task3 <- function(filePath) {
         print("CAU 3 ---")
-        df <- read_excel("data01.xlsx")
+        df <- read_excel(filePath)
         Index = apply(df, MARGIN = 1, modify_index)
         df <- cbind(df, Index)
         print(df)
@@ -73,26 +74,66 @@ library(readxl)
     get_mean_height <- function(df) {
         # Assume each row average_height = (a + b) / 2
         # Return the mean height across the dataset
-        average_heights = rep((df$a + df$b)/2, df$n)
+        average_heights <- rep((df$a + df$b)/2, df$n)
         return(mean(average_heights))
     }
 
     get_variance <- function(df) {
         # Return the variance
-        average_heights = rep((df$a + df$b)/2, df$n)
-        mu = get_mean_height(df)
-        variance = sum((average_heights - mu)^2) / sum(df$n)
+        average_heights <- rep((df$a + df$b)/2, df$n)
+        mu <- get_mean_height(df)
+        variance <- sum((average_heights - mu)^2) / sum(df$n)
         return(variance)
     }
 
-    display_task4 <- function() {
+    display_task4 <- function(filePath) {
         print("CAU 4 ---")
-        df <- read_excel("data11.xlsx")
-        print(paste("Khoang do cao be nhat: ", get_min_height_range(df)))
-        print(paste("Khoang do cao lon nhat: ", get_max_height_range(df)))
+        df <- read_excel(filePath)
+        print(df)
+        print("Khoang do cao be nhat: ")
+        print(get_min_height_range(df))
+        print("Khoang do cao lon nhat: ")
+        print(get_max_height_range(df))
         print(paste("Trung binh mau (lay trung binh cong do cao tung khoang): ", get_mean_height(df)))
         print(paste("Phuong sai mau hieu chinh: ", get_variance(df)))
         print("---")
     }
-    
+
 # Bai 5
+    get_p_quantiles <- function(nums, p) {
+        p_quantiles <- -1
+        n <- length(nums)
+        i <- (p / 100 * n)
+        print(i)
+
+        if (i %% 1 == 0) {
+            p_quantiles <- (nums[i] + nums[i+1]) / 2
+        }
+        else {
+            i <- round(i, digits = 0)
+            p_quantiles <- nums[i]
+        }
+        return(p_quantiles)
+    }
+
+    display_task5 <- function(p) {
+        print("Cau 5 ---")
+        print("Khoi tao mang 50 -> 1, sau do xap xep tang dan (nhap vao mang random trong thuc te): ")
+        nums_fifty <- c(50:1)
+        print(nums_fifty)
+        print("---")
+
+        nums_fifty = sort(nums_fifty, decreasing = FALSE)
+        print("Tren mot mang tu 1 den 50: ")
+        print(nums_fifty)
+
+        print(paste("P = ", p))
+        p_quantiles = get_p_quantiles(nums_fifty, p)
+        print(paste("Phan vi thu ", p, " la ", p_quantiles))
+    }
+    
+display_task1(5)
+display_task2()
+display_task3("week2/data01.xlsx")
+display_task4("week2/data11.xlsx")
+display_task5(40)
