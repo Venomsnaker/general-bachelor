@@ -73,6 +73,21 @@ void SortInsertation(vector<int> &nums)
     }
 }
 
+void SortShell(vector<int> &nums) {
+    int n = nums.size();
+
+    for (int gap = n / 2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; i+=1) {
+            int temp = nums[i];
+
+            int j;
+            for (j = i; j >= gap && nums[j-gap] > temp; j -= gap) nums[j] = nums[i - gap];
+            nums[j] = temp;
+        }
+    }
+    return;
+}
+
 void Merge(vector<int> &nums, int l, int m, int r)
 {
     int n1 = m - l + 1;
@@ -252,7 +267,7 @@ int main()
 {
     vector<int> nums = {2, 3, 6, 4, 5, 2, 8, 7, 9, 1};
     PrintVector(nums);
-    SortRadix(nums, nums.size());
+    SortShell(nums);
     PrintVector(nums);
     return 0;
 }
