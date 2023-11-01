@@ -1,6 +1,5 @@
 #include <iostream>
-#include <cstdlib> 
-#include <time.h>
+#include <chrono>
 using namespace std;
 
 // Sort Algorithms
@@ -76,7 +75,7 @@ void get_merge_result(int nums[], int l, int m, int r) {
     int *L = new int[n1];
     int *R = new int[n2];
     
-    for (int i = 0; i < n1; i++) L[i] = nums[i + l];
+    for (int i = 0; i < n1; i++) L[i] = nums[i + l];    
     for (int j = 0; j < n2; j++) R[j] = nums[j + m + 1];
 
     int i = 0, j = 0, k = l;
@@ -113,6 +112,7 @@ void sort_merge(int nums[], int n, int l, int r) {
     sort_merge(nums, n, m + 1, r);
     get_merge_result(nums, l, m, r);
 }
+
 
 int get_partition_idx(int nums[], int n, int l, int r) {
     int paritionIdx = nums[r];
@@ -176,55 +176,34 @@ void print_array(int nums[], int n) {
 }
 
 void test_sort() {
-    const int n = 20;
+    const int n = 21;
     int nums[n];
 
     for (int i = 0; i < n; i++) {
         nums[i] = rand() % 100;
     }
     print_array(nums, n);
-    sort_heap(nums, n);
+    sort_binary_insertation_sort(nums, n);
     print_array(nums, n);
 }
 
-// Display Functions
-void get_sorts_complexity() {
-    clock_t start;
-    double time_taken;
-    const int n = 10000;
+void display_complexity() {
+    const int n = 1000;
     int nums[n];
-    cout << "So sanh cac loai sort voi " << n << " mau." << endl;
 
-    cout << "Selection Sort" << endl;
-    for (int i = 0; i < n; i++) {
-        nums[i] = rand() % 100;
+    for (int i = 0; i < 10; i++){
+        for (int j = 0; j < n; j++) {
+            nums[j] = rand() % 100;
+        }
+        //print_array(nums, n);
+        auto start = chrono::steady_clock::now();
+        sort_bubble(nums, n);
+        auto end = chrono::steady_clock::now();
+        cout << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
     }
-    start = clock();
-    sort_selection(nums, n);
-    time_taken = double(clock() - start) / (double)(CLOCKS_PER_SEC);
-    cout << "Thoi gian thuc hien Selection Sort la: " << time_taken << endl << endl;
-
-    cout << "Bubble Sort" << endl;
-    for (int i = 0; i < n; i++) {
-        nums[i] = rand() % 100;
-    }
-    start = clock();
-    sort_bubble(nums, n);
-    time_taken = double(clock() - start) / (double)(CLOCKS_PER_SEC);
-    cout << "Thoi gian thuc hien Bubble Sort la: " << time_taken << endl << endl;
-
-    cout << "Insertation Sort" << endl;
-    for (int i = 0; i < n; i++) {
-        nums[i] = rand() % 100;
-    }
-    start = clock();
-    sort_insertation(nums, n);
-    time_taken = double(clock() - start) / (double)(CLOCKS_PER_SEC);
-    cout << "Thoi gian thuc hien Insertation Sort la: " << time_taken << endl << endl;
-    return;
 }
 
 int main() {
-    test_sort();
+    display_complexity();
     return 0;
 }
