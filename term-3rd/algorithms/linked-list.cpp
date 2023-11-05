@@ -38,8 +38,28 @@ public:
         temp->next = newNode;
     }
 
-    void deleteNode(int pos) {
-        
+    void deleteNode(Node* &head, int pos) {
+        Node* temp;
+        Node* prev;
+        temp = head; prev = head;
+
+        for (int i = 0; i < pos; i++) {
+            if (i == 0 && pos == 1) {
+                head = head->next;
+                delete(temp);
+            }
+            else {
+                if (i == pos - 1 && temp) {
+                    prev->next = temp->next;
+                    delete(temp);
+                } else {
+                    prev = temp;
+
+                    if (prev == NULL) break;
+                    temp = temp->next;
+                }
+            }
+        }
     }
 
     void printList() {
