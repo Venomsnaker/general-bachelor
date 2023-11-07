@@ -142,7 +142,9 @@ public:
 void displayStudentDatabase() {
     // Initialize
     StudentDatabase database;
-    cout << "Print the pre-initialize database" << endl;
+    database.addNewStudent();
+
+    cout << "Print the pre-initialize database (with the student you have just created):" << endl;
     char code1[] = "1";
     char name1[] = "A";
     char birthday1[] = "06/03/2004";
@@ -178,15 +180,15 @@ void displayStudentDatabase() {
     database.addNewStudent(st3);
     database.addNewStudent(st4);
     database.printStudents();
-    cout << "Print the students with code = 4" << endl;
+    cout << "Print the students with code == 4:" << endl;
     char code[] = "4";
     database.printStudentByCode(code);
 
     double score = 5;
-    cout << "Print the students with score < 5" << endl;
+    cout << "Print the students with score < 5:" << endl;
     database.printStudentByScore(score);
 
-    cout << "Create a new database and sort the code when adding." << endl;
+    cout << "Create a new database and sort the code when adding:" << endl;
     StudentDatabase databaseSorted;
     databaseSorted.addNewStudentByCode(st1);
     databaseSorted.addNewStudentByCode(st2);

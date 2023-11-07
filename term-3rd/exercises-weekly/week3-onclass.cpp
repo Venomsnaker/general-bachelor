@@ -283,8 +283,8 @@ public:
 
     void printDatabase(Customer* cus) {
         if (!cus) return;
-        cout << cus->name << "---" << cus->phoneNumber << "---" << cus->address << "---" << cus->birthday.year << "/" << cus->birthday.month << "/" << cus->birthday.date << endl;
         printDatabase(cus->left);
+        cout << cus->name << "---" << cus->phoneNumber << "---" << cus->address << "---" << cus->birthday.year << "/" << cus->birthday.month << "/" << cus->birthday.date << endl;
         printDatabase(cus->right);
     }
     
@@ -297,27 +297,29 @@ public:
         getSameBirthdayCustomer(customer->right, target);
     }
 
+    void deleteTree(Customer* customer) {
+    if (customer == NULL) return;
+    deleteTree(customer->left);
+    deleteTree(customer->right);
+    delete customer;
+}
+
     ~BST_Customer() {
         deleteTree(root);
-    }
-
-private:
-    void deleteTree(Customer* node) {
-        if (node == NULL) return;
-        deleteTree(node->left);
-        deleteTree(node->right);
-        delete node;
     }
 };
 
 void demonstrateCustomerDatabase() {
     cout << "Task 2" << endl;
     BST_Customer customer_database;
+    customer_database.root = NULL;
     // Initialize
-    customer_database.root = customer_database.createCustomer("0999", "A", "Viet Nam", Birthday(1960, 5, 15));
+    cout << "Print the pre-initialize BST (insert in order A,C,D,B,E) - inorder traversal:" << endl;
+    customer_database.insertCustomer(customer_database.root, "0999", "A", "Viet Nam", Birthday(1960, 5, 15));
+    customer_database.insertCustomer(customer_database.root, "0222", "C", "Greek", Birthday(2000, 3, 24));
+    customer_database.insertCustomer(customer_database.root, "0555", "D", "Oman", Birthday(2004, 4, 17));
     customer_database.insertCustomer(customer_database.root, "0111", "B", "Australia", Birthday(1980, 2, 15));
-    customer_database.insertCustomer(customer_database.root, "0222", "C", "Greek", Birthday(1960, 5, 15));
-    customer_database.insertCustomer(customer_database.root, "05555", "D", "Oman", Birthday(2004, 4, 17));
+    customer_database.insertCustomer(customer_database.root, "0333", "E", "France", Birthday(1960,5,15));
     customer_database.printDatabase(customer_database.root);
     cout << "Find those who birthdate is 15/05/1960: " << endl;
     Birthday target = Birthday(1960,5,15);
