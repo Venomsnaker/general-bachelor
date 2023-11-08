@@ -242,17 +242,6 @@ public:
     }
 };
 
-bool compareBirthday(Birthday d1, Birthday d2) {
-    if (d1.year > d2.year) return true;
-    if (d1.year < d2.year) return false;
-
-    if (d1.month > d2.month) return true;
-    if (d1.month < d2.month) return false;
-
-    if (d1.date > d2.date) return true;
-    return false;
-}
-
 bool checkSameBirthday(Birthday d1, Birthday d2) {
     if (d1.year == d2.year && d1.month == d2.month && d1.date == d2.date) return true;
     return false;
@@ -267,17 +256,17 @@ public:
         return new_customer;
     }
 
-    void insertCustomer(Customer* &customer, string phoneNumber, string name, string address, Birthday new_birthday) {
+    void insertCustomer(Customer* &customer, string phoneNumber, string name, string address, Birthday birthday) {
         if (customer == NULL) {
-            customer = createCustomer(phoneNumber, name, address, new_birthday);
+            customer = createCustomer(phoneNumber, name, address, birthday);
             return;
         }
 
-        if (compareBirthday(customer->birthday, new_birthday)) {
-            insertCustomer(customer->left, phoneNumber, name, address, new_birthday);
+        if (customer->phoneNumber > phoneNumber) {
+            insertCustomer(customer->left, phoneNumber, name, address, birthday);
         }
         else {
-            insertCustomer(customer->right, phoneNumber, name, address, new_birthday);
+            insertCustomer(customer->right, phoneNumber, name, address, birthday);
         }
     }
 
@@ -290,10 +279,10 @@ public:
     
     void getSameBirthdayCustomer(Customer* customer, Birthday target) {
         if (!customer) return;
+        getSameBirthdayCustomer(customer->left, target);
         if (checkSameBirthday(customer->birthday, target)) {
             cout << customer->name << "---" << customer->phoneNumber << "---" << customer->address << "---" << customer->birthday.year << "/" << customer->birthday.month << "/" << customer->birthday.date << endl;
         }
-        getSameBirthdayCustomer(customer->left, target);
         getSameBirthdayCustomer(customer->right, target);
     }
 

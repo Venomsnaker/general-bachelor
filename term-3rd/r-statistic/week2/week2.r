@@ -1,7 +1,5 @@
 library(readxl)
-# 22120128 - Bui Quoc Huy
-
-# Bai 1
+# Task 1
     sum_to_x <- function(nums, x) {
         sum <- 0
 
@@ -20,7 +18,7 @@ library(readxl)
         print("---")
     }
 
-# Bai 2
+# Task 2
     get_volume <- function(r) {
         return(4 * pi * (r^3) / 3)
     }
@@ -38,7 +36,7 @@ library(readxl)
         print("---")
     }
 
-# Bai 3
+# Task 3
     modify_index <- function(cols) {
         #cols[1] == age
         if (cols[1] <= 60) return(0)
@@ -57,7 +55,7 @@ library(readxl)
     }
     
 
-# Bai 4
+# Task 4
     get_max_height_range <- function(df) {
         # Return the highest height range with n > 0
         df <- subset(df, n > 0)
@@ -99,7 +97,7 @@ library(readxl)
         print("---")
     }
 
-# Bai 5
+# Task 5
     get_p_quantiles <- function(nums, p) {
         p_quantiles <- -1
         n <- length(nums)
