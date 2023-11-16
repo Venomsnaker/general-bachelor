@@ -58,3 +58,5 @@ task5 <- function() {
     hist(sample.meanX(m), freq = 0, breaks = 40)
     curve(dchisq(x, n - 1), col = "red", add = T)
 }
+
+task4()
