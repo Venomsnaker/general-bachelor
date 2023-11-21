@@ -22,6 +22,21 @@ void initLinkedList(LinkedList &l) {
     l.tail = NULL;
 }
 
+void updateListTail(LinkedList &l) {
+    Movie* temp = l.head;
+
+    if (temp == NULL) {
+        l.head = NULL;
+        l.tail = NULL;
+        return;
+    }
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    l.tail = temp;
+}
+
 Movie* createMovie(const char* id, const char* name, const char* producer, int year_produced, float ranking) {
     Movie* movie = new Movie;
     strcpy(movie->id, id);
@@ -33,40 +48,71 @@ Movie* createMovie(const char* id, const char* name, const char* producer, int y
     return movie;
 }
 
-void insertByProducedYear(LinkedList &l, Movie* movie) {
-    Movie* temp = l.head;
-
-    if (!temp) l.head = l.tail = movie;
+void addFront(LinkedList &l, Movie* p) {
+    if (l.head == NULL) l.head = l.tail = p;
     else {
-        if (temp->year_produced > movie->year_produced) {
-            movie->next = temp;
-            l.head = movie;
+        p->next = l.head;
+        l.head = p;
+    }
+    return;
+}
+
+void addBack(LinkedList &l, Movie* p) {
+    if (l.head == NULL) l.head = l.tail = p;
+    else {
+        l.tail->next = p;
+        l.tail = p;
+    }
+    return;
+}
+
+void insertByProducedYear(LinkedList &l, Movie* p) {
+    if (l.head == NULL) l.head = l.tail = p;
+    else {
+        if (p->year_produced < l.head->year_produced) {
+            addFront(l, p);
             return;
         }
 
-        while (temp->next) {
-            if (temp->next->year_produced > movie->year_produced) {
-                movie->next = temp->next;
-                temp->next = movie;
-                return;
-            }
+        if (p->year_produced > l.tail->year_produced) {
+            addBack(l, p);
+            return;
+        }
+
+        Movie* temp = l.head;
+
+        while (temp->next != NULL && p->year_produced > temp->next->year_produced) {
             temp = temp->next;
         }
-        temp->next = movie;
+        p->next = temp->next;
+        temp->next = p;
+        return;
     }
 }
 
 void deleteHBOMovies(LinkedList &l) {
-    Movie* prev = new Movie;
-    prev->next = l.head;
+    if (l.head == NULL) return;
 
-    while(prev->next) {
-        if (strcmp(prev->next->producer, "HBO") == 0) {
-            prev->next = prev->next->next;
-            continue;
+    Movie* dummy = createMovie("","","",0,0);
+    dummy->next = l.head;
+    Movie* curr = l.head;
+    Movie* prev = dummy;
+
+    while (curr != NULL) {
+        if (strcmp(curr->producer, "HBO") == 0) {
+            while(curr != NULL && strcmp(curr->producer, "HBO") == 0) {
+                curr = curr->next;
+            }
+            prev->next = curr;
+            if (curr == NULL) break;
         }
-        prev = prev->next;
+        else {
+            prev = curr;
+        }
+        curr = curr->next;
     }
+    l.head = dummy->next;
+    updateListTail(l);
     return;
 }
 

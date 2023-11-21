@@ -20,6 +20,21 @@ void initLinkedList(List& l) {
     l.head = l.tail = NULL;
 }
 
+void updateListTail(List &l) {
+    Node* temp = l.head;
+
+    if (temp == NULL) {
+        l.head = NULL;
+        l.tail = NULL;
+        return;
+    }
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    l.tail = temp;
+}
+
 Node* createNode(int data) {
     Node* new_node = new Node(data);
     return new_node;
@@ -42,15 +57,18 @@ void addLast(List& l, Node* p) {
 }
 
 void insertBeforeTarget(List& l, Node* p, Node* target) {
+    if (l.head == NULL) return;
+
+    if (l.head->data == target->data) {
+        addFirst(l, p);
+        return;
+    }
+
     Node* temp = l.head;
+    
+    while (temp->next != NULL && temp->next->data != target->data) temp = temp->next;
 
-    while (temp->next && temp->next->data != target->data) {
-        temp = temp->next;
-    }
-
-    if (!(temp->next)) {
-        cout << "The node you wish to insert before: " << target->data << " isn't in the list." << endl;
-    }
+    if (temp->next == NULL) cout << "The node you wish to insert after: " << temp->data << " is not in the list." << endl;
     else {
         p->next = temp->next;
         temp->next = p;
@@ -105,16 +123,28 @@ bool searchNode(List &l, int key) {
 }
 
 void removeEntry(List& l, int key) {
-    Node* prev = createNode(0);
-    prev->next = l.head;
+    if (l.head == NULL) return;
 
-    while (prev->next) {
-        if (prev->next->data == key) {
-            prev->next = prev->next->next;
-            continue;
+    Node* dummy = createNode(0);
+    dummy->next = l.head;
+    Node* curr = l.head;
+    Node* prev = dummy;
+
+    while (curr != NULL) {
+        if (curr->data == key) {
+            while(curr != NULL && curr->data == key) {
+                curr = curr->next;
+            }
+            prev->next = curr;
+            if (curr == NULL) break;
         }
-        prev = prev->next;
+        else {
+            prev = curr;
+        }
+        curr = curr->next;
     }
+    l.head = dummy->next;
+    updateListTail(l);
     return;
 }
 
