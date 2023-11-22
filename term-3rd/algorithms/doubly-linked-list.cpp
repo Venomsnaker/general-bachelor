@@ -24,12 +24,12 @@ class DoublyLinkedList{
 public:
     Node* head;
 
-    Node* CreateNode(int data) {
+    Node* createNode(int data) {
         Node* new_node = new Node(data);
         return new_node;
     }
 
-    void PrintLinkedList() {
+    void printLinkedList() {
         Node* cur = head;
         if (!cur) return;
 
@@ -40,7 +40,7 @@ public:
         cout << endl;
     }
 
-    void PushFront(Node* &cur, Node* node) {
+    void pushFront(Node* &cur, Node* node) {
         if(!cur) {
             cur = node;
         }
@@ -52,7 +52,7 @@ public:
         return;
     }
 
-    void PushBack(Node* &cur, Node* node) {
+    void pushBack(Node* &cur, Node* node) {
         if (!cur) {
             cur = node;
         }
@@ -68,7 +68,7 @@ public:
         return;
     }
 
-    void PushPrevious(int data, Node* new_node) {
+    void pushPrevious(int data, Node* new_node) {
         if (!head) return;
         Node* cur = head;
 
@@ -83,7 +83,7 @@ public:
         return;
     }
 
-    void DeleteNode(int data) {
+    void deleteNode(int data) {
         Node* cur = head;
         
         while (cur && cur->data != data) cur = cur->next;
@@ -101,11 +101,11 @@ public:
 int main() {
     DoublyLinkedList dll;
     dll.head = NULL;
-    dll.PushBack(dll.head, dll.CreateNode(3));
-    dll.PushBack(dll.head, dll.CreateNode(5));
-    dll.PushBack(dll.head, dll.CreateNode(4));
-    dll.PushFront(dll.head, dll.CreateNode(2));
-    dll.PushPrevious(5, dll.CreateNode(1));
-    dll.DeleteNode(1);
-    dll.PrintLinkedList();
+    dll.pushBack(dll.head, dll.createNode(1));
+    dll.pushBack(dll.head, dll.createNode(2));
+    dll.pushBack(dll.head, dll.createNode(3));
+    dll.pushFront(dll.head, dll.createNode(4));
+    dll.pushPrevious(2, dll.createNode(5));
+    dll.deleteNode(1);
+    dll.printLinkedList();
 }

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int SearchIterative(vector<int> nums, int target)
+int searchInterative(vector<int> nums, int target)
 {
     for (int i = 0; i < nums.size(); i++)
     {
@@ -11,7 +11,7 @@ int SearchIterative(vector<int> nums, int target)
     return -1;
 }
 
-int SearchBinary(vector<int> nums, int target)
+int searchBinary(vector<int> nums, int target)
 {
     int l = 0, r = nums.size() - 1;
 
@@ -36,5 +36,5 @@ int SearchBinary(vector<int> nums, int target)
 
 int main() {
     vector<int> nums = {1,2,3,4,5,6,7};
-    cout << SearchBinary(nums, 9);
+    cout << searchBinary(nums, 9);
 }

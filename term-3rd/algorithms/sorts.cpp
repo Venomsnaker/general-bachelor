@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void PrintVector(vector<int> nums)
+void printVector(vector<int> nums)
 {
     int n = nums.size();
 
@@ -12,7 +12,7 @@ void PrintVector(vector<int> nums)
     cout << endl;
 }
 
-void SortBubble(vector<int> &nums)
+void sortBubble(vector<int> &nums)
 {
     // Time Complexity: O(n^2)
     // Space Complexity: O(1)
@@ -30,7 +30,7 @@ void SortBubble(vector<int> &nums)
     }
 }
 
-void SortSelection(vector<int> &nums)
+void sortSelection(vector<int> &nums)
 {
     // Time Complexity: O(n^2)
     // Space Complexity: O(1)
@@ -53,7 +53,7 @@ void SortSelection(vector<int> &nums)
     }
 }
 
-void SortInsertation(vector<int> &nums)
+void sortInsertation(vector<int> &nums)
 {
     // Time Complexity: O(n^2)
     // Space Complexity: O(1)
@@ -73,7 +73,7 @@ void SortInsertation(vector<int> &nums)
     }
 }
 
-void SortShell(vector<int> &nums) {
+void sortShell(vector<int> &nums) {
     int n = nums.size();
 
     for (int gap = n / 2; gap > 0; gap /= 2) {
@@ -88,7 +88,7 @@ void SortShell(vector<int> &nums) {
     return;
 }
 
-void Merge(vector<int> &nums, int l, int m, int r)
+void merge(vector<int> &nums, int l, int m, int r)
 {
     int n1 = m - l + 1;
     int n2 = r - m;
@@ -133,7 +133,7 @@ void Merge(vector<int> &nums, int l, int m, int r)
     }
 }
 
-void SortMerge(vector<int> &nums, int l, int r)
+void sortMerge(vector<int> &nums, int l, int r)
 {
     // Time Complexity: O(nlog(n))
     // Space Complexity: O(n)
@@ -141,12 +141,12 @@ void SortMerge(vector<int> &nums, int l, int r)
         return;
     int m = l + (r - l) / 2;
 
-    SortMerge(nums, l, m);
-    SortMerge(nums, m + 1, r);
-    Merge(nums, l, m, r);
+    sortMerge(nums, l, m);
+    sortMerge(nums, m + 1, r);
+    merge(nums, l, m, r);
 }
 
-void Heapify(vector<int> &nums, int n, int i)
+void heapify(vector<int> &nums, int n, int i)
 {
     int largest = i;
     int l = 2 * i + 1;
@@ -160,11 +160,11 @@ void Heapify(vector<int> &nums, int n, int i)
     if (largest != i)
     {
         swap(nums[i], nums[largest]);
-        Heapify(nums, n, largest);
+        heapify(nums, n, largest);
     }
 }
 
-void SortHeap(vector<int> &nums)
+void sortHeap(vector<int> &nums)
 {
     // Time Complexity: O(nlog(n))
     // Space Complexity: O(1)
@@ -172,17 +172,17 @@ void SortHeap(vector<int> &nums)
 
     for (int i = n / 2 - 1; i >= 0; i--)
     {
-        Heapify(nums, n, i);
+        heapify(nums, n, i);
     }
 
     for (int i = n - 1; i >= 0; i--)
     {
         swap(nums[0], nums[i]);
-        Heapify(nums, i, 0);
+        heapify(nums, i, 0);
     }
 }
 
-int Partition(vector<int> &nums, int l, int r)
+int partition(vector<int> &nums, int l, int r)
 {
     int pivot = nums[r];
     int i = l - 1;
@@ -199,20 +199,20 @@ int Partition(vector<int> &nums, int l, int r)
     return i + 1;
 }
 
-void SortQuick(vector<int> &nums, int l, int r)
+void sortQuick(vector<int> &nums, int l, int r)
 {
     // Time Complexity: O(nlog(n))
     // Space Complexity: O(log(n))
     if (l < r)
     {
-        int partitionIdx = Partition(nums, l, r);
-        SortQuick(nums, l, partitionIdx - 1);
-        SortQuick(nums, partitionIdx + 1, r);
+        int partitionIdx = partition(nums, l, r);
+        sortQuick(nums, l, partitionIdx - 1);
+        sortQuick(nums, partitionIdx + 1, r);
     }
     return;
 }
 
-int GetMax(vector<int> nums, int n)
+int getMax(vector<int> nums, int n)
 {
     int max = nums[0];
 
@@ -224,7 +224,7 @@ int GetMax(vector<int> nums, int n)
     return max;
 }
 
-void CountSort(vector<int> &nums, int n, int exp)
+void countSort(vector<int> &nums, int n, int exp)
 {
     const int max = 10;
     int output[n];
@@ -253,21 +253,21 @@ void CountSort(vector<int> &nums, int n, int exp)
         nums[i] = output[i];
 }
 
-void SortRadix(vector<int> &nums, int n)
+void sortRadix(vector<int> &nums, int n)
 {
     // Time Complexity: O(n * k)
     // Space Complexity: O(n + k)
-    int max = GetMax(nums, n);
+    int max = getMax(nums, n);
 
     for (int exp = 1; max / exp > 0; exp *= 10)
-        CountSort(nums, n, exp);
+        countSort(nums, n, exp);
 }
 
 int main()
 {
     vector<int> nums = {2, 3, 6, 4, 5, 2, 8, 7, 9, 1};
-    PrintVector(nums);
-    SortShell(nums);
-    PrintVector(nums);
+    printVector(nums);
+    sortShell(nums);
+    printVector(nums);
     return 0;
 }
