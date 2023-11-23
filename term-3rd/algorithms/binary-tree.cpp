@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <queue>
 #include <stack>
 using namespace std;
@@ -40,6 +41,29 @@ void insertNode_BS(Node* &cur, int key) {
 
     if (cur->key > key) insertNode_BS(cur->left, key);
     else insertNode_BS(cur->right, key);
+}
+
+void insertNode_BS_NoRecursion(Node* &root, int key) {
+    Node* prev = NULL;
+    Node* cur = root;
+
+    if (!root) {
+        root = createNode(key);
+        return;
+    }
+
+    while (cur != NULL) {
+        prev = cur;
+        if (key < cur->key) {
+            cur = cur->left;
+        } else {
+            cur = cur->right;
+        }
+    }
+
+    if (key < prev->key) {
+        prev->left = createNode(key);
+    } else prev->right = createNode(key);
 }
 
 bool searchNode_BS(Node* cur, int key) {
@@ -223,14 +247,55 @@ void getAllPaths(Node* root, int sum) {
     return;
 }
 
+int countLeafNode(Node* cur) {
+    if (cur == NULL) return 0;
+    if (cur->left == NULL && cur->right == NULL) return 1;
+    
+    return countLeafNode(cur->left) + countLeafNode(cur->right);
+}
+
+int getMaxValSmallerThanX(Node* cur, int target) {
+    int res = INT_MIN;
+    Node* temp = cur;
+
+    while (temp != NULL) {
+        if (temp->key < target) {
+            res = max(temp->key, res);
+        } 
+
+        if (temp->key < target) {     
+            temp = temp->right;
+        } else {
+            temp = temp->left;
+        }
+    }
+    return res;
+}
+
+// int countNodes(Node* root) {
+//     if (root == NULL) return 0;
+
+//     return (1 + countNodes(root->left) + countNodes(root->right));
+// }
+
+// bool isComplete(Node* root, int index = 0, int number_nodes) {
+//     if (root == NULL) return true;
+
+//     if (index >= number_nodes) return false;
+
+//     return isComplete(root->left, 2*index + 1, number_nodes) && isComplete(root->right, 2 * index + 2, number_nodes);
+
+// }
+
 int main() {
     Node* root = createNode(10);
-    insertNode_Level(root, 5);
-    insertNode_Level(root, 15);
-    insertNode_Level(root, 2);
-    insertNode_Level(root, 8);
-    insertNode_Level(root, 13);
-    insertNode_Level(root, 17);
+    // insertNode_BS_NoRecursion(root, 5);
+    // insertNode_BS_NoRecursion(root, 15);
+    // insertNode_BS_NoRecursion(root, 2);
+    // insertNode_BS_NoRecursion(root, 8);
+    // // insertNode_BS_NoRecursion(root, 13);
+    // insertNode_BS_NoRecursion(root, 17);
+    //cout << getMaxValSmallerThanX(root, 6);
 
     // insertNode_BS(root, 5);
     // insertNode_BS(root, 15);
@@ -242,10 +307,11 @@ int main() {
     // cout << searchNode_BS(root, 0);
     // cout << searchNode_BS(root, 2);
     
+    cout << countLeafNode(root);
     // traverseInorder(root);
-    traverseInorderInterative(root);
-    cout << endl;
-    getAllPaths(root, 23);
+    // traverseInorderInterative(root);
+    // cout << endl;
+    // getAllPaths(root, 23);
     // traversePreorder(root);
     // traverseInorder(root);
     // traversePostorder(root);

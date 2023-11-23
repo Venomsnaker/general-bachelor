@@ -24,6 +24,38 @@ void initLinkedList(LinkedList &l) {
     l.head = l.tail = NULL;
 }
 
+void mergeSortedLinkedList(LinkedList list1, LinkedList list2, LinkedList &res) {
+    Node* l1 = list1.head;
+    Node* l2 = list2.head;
+
+    if (l1->data > l2->data) {
+        res.head = l1;
+        l1 = l1->next;
+    } else {
+        res.head = l2;
+        l2 = l2->next;
+    }
+
+    Node* temp = res.head;
+
+    while (l1 != NULL && l2 != NULL) {
+        if (l1->data > l2->data) {
+            temp->next = l1;
+            l1 = l1->next;
+        } else {
+            temp->next = l2;
+            l2 = l2->next;
+        }
+        temp = temp->next;
+    }
+
+    if (l1 != NULL) {
+        temp->next = l1;
+    } else {
+        temp->next = l2;
+    }
+}
+
 Node* createNode(int id, const char* data) {
     Node* new_node = new Node(id, data);
     return new_node;
