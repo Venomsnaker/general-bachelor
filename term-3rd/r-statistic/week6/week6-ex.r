@@ -43,9 +43,8 @@ task5 <- function() {
   print(diesel$load)
   print("---")
 
-  par(mfrow = c(3, 2))
-
   boxplot(diesel$speed, diesel$timing, diesel$delay,
+          main = "Speed, Timing and Delay",
           names = c("Speed", "Timing", "Delay"))
 
   plot(diesel$timing, diesel$speed, main = "Timing & Speed Scatter Plot:",
@@ -72,7 +71,6 @@ task5 <- function() {
 }
 
 task6 <- function() {
-  par(mfrow = c(2, 2))
   data <- data.frame(year = c(1970:1979),
                      snow.cover = c(6.5, 12.0, 14.9, 10.0,
                                     10.7, 7.9, 21.9, 12.5, 14.5, 9.2))
@@ -136,21 +134,20 @@ task8 <- function() {
   print(inflation)
   print("---")
 
-  par(mfrow = c(2, 2))
   print("Years when inflation < 5")
   print(sum(inflation$US > 5 | inflation$UK > 5 |
               inflation$Japan > 5 | inflation$Germany > 5))
 
-  # plot(inflation$Year, inflation$US, type = "o", col = "green",
-  #      xlab = "Year", ylab = "US")
-  # plot(inflation$Year, inflation$UK, type = "o", col = "red",
-  #      xlab = "Year", ylab = "UK")
-  # plot(inflation$Year, inflation$Japan, type = "o", col = "blue",
-  #      xlab = "Year", ylab = "Japan")
-  # plot(inflation$Year, inflation$Germany, type = "o", col = "pink",
-  #      xlab = "Year", ylab = "Germany")
-  print("Both US and UK start low then rise drastically 
-         while Japan and Germany have a peak at 1970~.")
+  plot(inflation$Year, inflation$US, type = "o", col = "red",
+       xlab = "Year", ylab = "US", main = "US Inflation")
+  plot(inflation$Year, inflation$UK, type = "o", col = "royalblue",
+       xlab = "Year", ylab = "UK", main = "UK Inflation")
+  plot(inflation$Year, inflation$Japan, type = "o", col = "darkcyan",
+       xlab = "Year", ylab = "Japan", main = "Japan Inflation")
+  plot(inflation$Year, inflation$Germany, type = "o", col = "magenta",
+       xlab = "Year", ylab = "Germany", main = "Germany Inflation")
+  print("Both US and UK start low then rise drastically:")
+  print("while Japan and Germany have a peak at 1970~.")
 
   summarise_stats <- data.frame(
     Mean = c(mean(inflation$US, na.rm = TRUE),
@@ -170,47 +167,50 @@ task8 <- function() {
             min(inflation$Japan, na.rm = TRUE),
             min(inflation$Germany, na.rm = TRUE)),
     SD = c(sd(inflation$US, na.rm = TRUE),
-          sd(inflation$UK, na.rm = TRUE),
-          sd(inflation$Japan, na.rm = TRUE),
-          sd(inflation$Germany, na.rm = TRUE)),
+            sd(inflation$UK, na.rm = TRUE),
+            sd(inflation$Japan, na.rm = TRUE),
+            sd(inflation$Germany, na.rm = TRUE)),
     SE = c(mean(inflation$US, na.rm = TRUE) /
-              sqrt(length(inflation$US) - sum(is.na(inflation$US))),
-            mean(inflation$UK, na.rm = TRUE) /
-              sqrt(length(inflation$UK) - sum(is.na(inflation$UK))),
-            mean(inflation$Japan, na.rm = TRUE) /
-              sqrt(length(inflation$Japan) - sum(is.na(inflation$Japan))),
-            mean(inflation$Germany, na.rm = TRUE) /
-              sqrt(length(inflation$Germany) - sum(is.na(inflation$Germany)))))
+      sqrt(length(inflation$US) - sum(is.na(inflation$US))),
+    mean(inflation$UK, na.rm = TRUE) /
+      sqrt(length(inflation$UK) - sum(is.na(inflation$UK))),
+    mean(inflation$Japan, na.rm = TRUE) /
+      sqrt(length(inflation$Japan) - sum(is.na(inflation$Japan))),
+    mean(inflation$Germany, na.rm = TRUE) /
+      sqrt(length(inflation$Germany) - sum(is.na(inflation$Germany)))))
   row.names(summarise_stats) <- c("US", "UK", "Japan", "Germany")
   print(summarise_stats)
-  print("We use standard deviation - sd 
-         to judge with varible flunctuate the most: UK")
+  print("We use standard deviation - sd")
+  print("to judge with varible flunctuate the most: UK")
   print("---")
 
   inflation_dropped <- inflation[-c(21), ]
   print(inflation_dropped)
-  print(inflation_dropped$US)
+  print("---")
 
-  linear_progression <- function(x, y) {
+  linear_regression <- function(x, y) {
     n <- length(x)
-    beta2 <- (sum(x) * sum(y) - n * mean(x, na.rm = TRUE) *mean(y, na.rm = TRUE)) /
-      (sum(x^2) - n * mean(x, na.rm = TRUE)^2)
-    beta1 <- mean(y, na.rm = TRUE) - beta2 * mean(x, na.rm = TRUE)
+    beta2 <- (sum(x * y) - n * mean(x) * mean(y)) /
+      (sum(x^2) - n * mean(x)^2)
+    beta1 <- mean(y) - beta2 * mean(x)
     return(c(beta1, beta2))
   }
-  beta1 <- linear_progression(inflation_dropped$US, inflation_dropped$year)[1]
-  print(beta1)
 
-  # plot(inflation_dropped$year, inflation_dropped$US, type = "o", col = "blue",
-  #      xlab = "Year", ylab = "US Inflation")
-  # lines(inflation$year,
-  #       linear_progression(inflation_dropped$year, inflation_dropped$US)[1]
-  #       + linear_progression(inflation_dropped$year, inflation_dropped$US)[2]
-  #       * inflation_dropped$year, type = "l")
+  parameters <- linear_regression(inflation_dropped$Year, inflation_dropped$US)
+  plot(inflation_dropped$Year, inflation_dropped$US,
+       type = "o", col = "royalblue", xlab = "Year", ylab = "US Inflation")
+  lines(inflation_dropped$Year,
+        parameters[1] + inflation_dropped$Year * parameters[2],
+        col = "red", type = "b")
+
+  print("Let's Predict 1980: ")
+  print(parameters[1] + 1980 * parameters[2])
+  print("Actual Case")
+  print(inflation$US[inflation$Year == 1980])
 }
 
-
-# task5()
-# task6()
-# task7()
+par(mfrow = c(5, 3))
+task5()
+task6()
+task7()
 task8()
