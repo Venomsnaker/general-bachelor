@@ -1,44 +1,46 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
-const int P = 1e6 + 3;
+const int P = 13;
 
-struct HashTable
-{
+struct HashTable {
     vector<pair<int, int>> h[P];
 
-public:
-    void insert(int key, int value)
-    {
-        int hkey = getHash(key);
+    public:
+        void insert(string name) {
+            int nameSum = 0;
 
-        for (auto p : h[hkey])
-        {
-            if (p.first == key)
-            {
-                return;
+            for (int i = 0; i < name.size(); i++) {
+                nameSum += (int)(name[i] - 'A');
             }
-        }
-        h[hkey].emplace_back(key, value);
-    }
+            int key = nameSum % P;
 
-    int find(int key)
-    {
-        int hkey = getHash(key);
 
-        for (auto p : h[hkey])
-        {
-            if (p.first == key)
-            {
-                return p.second;
+            int hkey = getHash(key);
+
+            for (auto p: h[hkey]) {
+                if (p.first == key) return;
             }
+            h[hkey].emplace_back(key, nameSum);
         }
-        return 0;
-    }
 
-private:
-    int getHash(int key)
-    {
-        return key % P;
-    }
+        int find(int key) {
+            int hkey = getHash(key);
+            for (auto p: h[hkey]) {
+                if (p.first == key) return p.second;
+            }
+            return 0;
+        }
+    
+    private:
+        int getHash(int key) {
+            return key % P;
+        }
 };
+
+int main() {
+    
+    return 0;
+}
