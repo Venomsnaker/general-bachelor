@@ -60,6 +60,7 @@
         "sstream": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "list": "cpp"
     }
 }
