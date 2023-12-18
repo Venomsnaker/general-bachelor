@@ -114,24 +114,26 @@ test_mean <- function(x, mu, s, alpha = 0.05,
                       ha = c("neq", "greater", "smaller")) {
   x_hat <- mean(x)
   n <- length(x)
-  z <- (x_hat - mu) * sqrt(n) / s
-
-  critical_z <- qnorm(1 - alpha / 2)
-  ho <- ifelse(abs(z) > critical_z, "Reject", "Do not reject")
-  p <- 2 * (1 - pnorm(abs(critical_z)))
+  t0 <- (x_hat - mu) * sqrt(n) / s
   ha <- match.arg(ha)
+
+  if (ha == "neq") {
+    critical_t <- qt(df = n - 1, 1 - alpha / 2)
+    ho <- ifelse(abs(t0) > critical_t, "Reject", "Do not reject")
+    p <- 2 * pt(t0, n - 1, lower.tail = FALSE)
+  }
   if (ha == "smaller") {
-    critical_z <- qnorm(1 - alpha)
-    ho <- ifelse(z > critical_z, "Reject", "Do not reject")
-    p <- 1 - pnorm(abs(critical_z))
+    critical_t <- qt(df = n - 1, 1 - alpha)
+    ho <- ifelse(t0 < -critical_t, "Reject", "Do not reject")
+    p <- pt(t0, n - 1, lower.tail = FALSE)
   }
   if (ha == "greater") {
-    critical_z <- qnorm(1 - alpha)
-    ho <- ifelse(z < -critical_z, "Reject", "Do not reject")
-    p <- pnorm(abs(critical_z))
+    critical_t <- qt(df = n - 1, 1 - alpha)
+    ho <- ifelse(t0 > critical_t, "Reject", "Do not reject")
+    p <- pt(t0, n - 1)
   }
-  results <- list(z, critical_z, alpha, ho, p)
-  names(results) <- c("z", "critical_z", "alpha", "ho", "p")
+  results <- list(t0, critical_t, alpha, ho, p)
+  names(results) <- c("z", "critical_t", "alpha", "ho", "p")
   class(results) <- "table"
   print(results)
   print("---")
