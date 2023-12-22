@@ -61,6 +61,10 @@
         "string": "cpp",
         "vector": "cpp",
         "deque": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "array": "cpp",
+        "queue": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     }
 }
