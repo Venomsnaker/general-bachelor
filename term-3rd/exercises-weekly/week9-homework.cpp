@@ -136,6 +136,7 @@ void dijkstra(vector<pair<int, int>> adj_list[], int V, int src)
         }
     }
 
+    cout << "Dijkstra: " << endl;
     cout << "Vertex \t Distance from Source" << endl;
     for (int i = 0; i < V; ++i)
     {
@@ -184,36 +185,82 @@ void constructGraphFromTxt(string filePath, vector<pair<int, int>> *&adj_list, i
 }
 
 int main() {
-    int v = -1;
+    int v = -1, options = -1, again = 1;
+    string answer = "";
     vector<pair<int, int>> *adj_list;
-    constructGraphFromTxt("graph.txt", adj_list, v);
-    writeGraphToTxt("graph-res.txt", adj_list, v);
-    printGraph(adj_list, v);
 
-    vector<int> res_bfs = graphBFS(adj_list);
+    while (again) {
+        system("cls");
+        cout << "0: End the program" << endl;
+        cout << "1: Create a graph from txt file" << endl;
+        cout << "2: Traverse BFS" << endl;
+        cout << "3: Traverse DFS" << endl;
+        cout << "4: Construct MST (Prim)" << endl;
+        cout << "5: Get Dijkstra table" << endl;
+        cout << "6: Print the graph" << endl;
 
-    cout << "BFS: " << endl;
-    for (auto i : res_bfs)
-    {
-        cout << i << ' ';
+        do 
+        {
+            cout << "Insert the option: " << endl;
+            cin >> options;
+        } while (options < 0 || options > 6);
+
+        switch (options)
+        {
+        case 1: {
+            constructGraphFromTxt("graph.txt", adj_list, v);
+            break;
+        }
+        case 2: {
+            vector<int> res_bfs = graphBFS(adj_list);
+
+            cout << "BFS: " << endl;
+            for (auto i : res_bfs)
+            {
+                cout << i << ' ';
+            }
+            cout << endl;
+            break;
+        }
+        case 3: {
+            vector<int> res_dfs;
+            vector<bool> visited(v, false);
+            graphDFS(adj_list, 0, visited, res_dfs);
+
+            cout << "DFS: " << endl;
+            for (auto i : res_dfs)
+            {
+                cout << i << ' ';
+            }
+            cout << endl;
+            break;
+        }
+        case 4: {
+            primMST(adj_list, v);
+            cout << endl;
+            break;
+        }
+        case 5: {
+            dijkstra(adj_list, v, 0);
+            break;
+        }
+        case 6: {
+            printGraph(adj_list, v);
+            break;
+        }
+        default:
+            break;
+        }
+
+        do 
+        {
+            cout << "Do you wish to continue (y/n)" << endl;
+            cin >> answer;
+
+        } while (answer != "y" && answer != "n");
+
+        if (answer == "n") {
+            again = 0;
+        }
     }
-    cout << endl;
-
-    vector<int> res_dfs;
-    vector<bool> visited(v, false);
-    graphDFS(adj_list, 0, visited, res_dfs);
-
-    cout << "DFS: " << endl;
-    for (auto i : res_dfs)
-    {
-        cout << i << ' ';
-    }
-    cout << endl;
-
-    primMST(adj_list, v);
-    cout << endl;
-
-    dijkstra(adj_list, v, 0);
-    cout << endl;
-    return 0;
 }
