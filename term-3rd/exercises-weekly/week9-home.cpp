@@ -1,36 +1,29 @@
 #include <iostream>
-#include <queue>
 #include <algorithm>
 #include <vector>
+#include<queue>
+#include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
-void addEdge(vector<pair<int, int>> adj_list[], int u, int v, int wt)
+void addEdge(vector<pair<int, int>> *adj_list, int u, int v, int wt)
 {
     adj_list[u].push_back(make_pair(v, wt));
-    adj_list[v].push_back(make_pair(u, wt));
 }
 
-void printGraph(vector<pair<int, int>> adj[], int v)
+void printGraph(vector<pair<int, int>> *adj, int v)
 {
-    int w;
-
     for (int u = 0; u < v; u++)
     {
         cout << "Vertice: " << u << " has an edge with: " << endl;
 
         for (auto it = adj[u].begin(); it != adj[u].end(); it++)
         {
-            v = it->first;
-            w = it->second;
-            cout << "\t Node " << v << " with edge weight " << w << endl;
+            cout << "\t Node " << it->first << " with edge weight " << it->second << endl;
         }
         cout << endl;
     }
-}
-
-void constructGraphFromFile(string filePath)
-{
-    // read file
 }
 
 vector<int> graphBFS(vector<pair<int, int>> adj_list[])
@@ -115,7 +108,8 @@ void primMST(vector<pair<int, int>> adj_list[], int v)
     }
 }
 
-void dijkstra(vector<pair<int, int>> adj_list[], int V, int src) {
+void dijkstra(vector<pair<int, int>> adj_list[], int V, int src)
+{
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     vector<int> dist(V, INT_MAX);
     vector<bool> visited(V, false);
@@ -123,17 +117,19 @@ void dijkstra(vector<pair<int, int>> adj_list[], int V, int src) {
     pq.push(make_pair(0, src));
     dist[src] = 0;
 
-    while (!pq.empty()) {
+    while (!pq.empty())
+    {
         int u = pq.top().second;
         pq.pop();
-
         visited[u] = true;
 
-        for (auto it = adj_list[u].begin(); it != adj_list[u].end(); it++) {
+        for (auto it = adj_list[u].begin(); it != adj_list[u].end(); it++)
+        {
             int v = it->first;
             int weight = it->second;
 
-            if (!visited[v] && dist[u] != INT_MAX && dist[v] > dist[u] + weight) {
+            if (!visited[v] && dist[u] != INT_MAX && dist[v] > dist[u] + weight)
+            {
                 dist[v] = dist[u] + weight;
                 pq.push(make_pair(dist[v], v));
             }
@@ -141,30 +137,58 @@ void dijkstra(vector<pair<int, int>> adj_list[], int V, int src) {
     }
 
     cout << "Vertex \t Distance from Source" << endl;
-    for (int i = 0; i < V; ++i) {
+    for (int i = 0; i < V; ++i)
+    {
         cout << i << "\t\t" << dist[i] << endl;
     }
 }
 
+void writeGraphToTxt(string filePath, vector<pair<int, int>> *adj, int v) {
+    ofstream outfile(filePath);
+    outfile << v << endl;; 
 
-int main()
-{
-    vector<pair<int, int>> adj_list[9];
-    addEdge(adj_list, 0, 1, 4);
-    addEdge(adj_list, 0, 7, 8);
-    addEdge(adj_list, 1, 7, 11);
-    addEdge(adj_list, 1, 2, 8);
-    addEdge(adj_list, 7, 8, 7);
-    addEdge(adj_list, 6, 7, 1);
-    addEdge(adj_list, 2, 8, 2);
-    addEdge(adj_list, 6, 8, 6);
-    addEdge(adj_list, 2, 3, 7);
-    addEdge(adj_list, 2, 5, 4);
-    addEdge(adj_list, 5, 6, 2);
-    addEdge(adj_list, 3, 5, 14);
-    addEdge(adj_list, 3, 4, 9);
-    addEdge(adj_list, 4, 5, 10);
-    printGraph(adj_list, 9);
+    for (int u = 0; u < v; u++) {
+        for (auto it = adj[u].begin(); it != adj[u].end(); it++)
+        {
+            outfile << u << " " << it->first << " " << it->second << endl;
+        }
+    }
+    outfile.close();
+    return;
+}
+
+void constructGraphFromTxt(string filePath, vector<pair<int, int>> *&adj_list, int &v) {
+    fstream infile(filePath);
+
+    if (infile.is_open()) {
+        string line;
+
+        getline(infile, line);
+        istringstream iss(line);
+        iss >> v;
+        adj_list = new vector<pair<int, int>>[v];
+
+        while (getline(infile, line))
+        {
+            istringstream iss(line);
+            int from, to, weight;
+
+            if ((iss >> from >> to >> weight))
+            {
+                addEdge(adj_list, from, to, weight);
+            }
+        }
+        infile.close();
+    }
+    return;
+}
+
+int main() {
+    int v = -1;
+    vector<pair<int, int>> *adj_list;
+    constructGraphFromTxt("graph.txt", adj_list, v);
+    writeGraphToTxt("graph-res.txt", adj_list, v);
+    printGraph(adj_list, v);
 
     vector<int> res_bfs = graphBFS(adj_list);
 
@@ -176,7 +200,7 @@ int main()
     cout << endl;
 
     vector<int> res_dfs;
-    vector<bool> visited(9, false);
+    vector<bool> visited(v, false);
     graphDFS(adj_list, 0, visited, res_dfs);
 
     cout << "DFS: " << endl;
@@ -186,10 +210,10 @@ int main()
     }
     cout << endl;
 
-    primMST(adj_list, 9);
+    primMST(adj_list, v);
     cout << endl;
 
-    dijkstra(adj_list, 9, 0);
+    dijkstra(adj_list, v, 0);
     cout << endl;
     return 0;
 }
