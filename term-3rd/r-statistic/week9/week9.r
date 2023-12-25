@@ -12,7 +12,8 @@ task2 <- function() {
   n1 <- length(steel1)
   n2 <- length(steel2)
 
-  t0 <- (mean1 - mean2) / sqrt(s1^2 / n1 + s2^2 / n2)
+  sp_square <- ((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2)
+  t0 <- (mean1 - mean2) / sqrt(sp_square * (1 / n1 + 1 / n2))
   t_test <- qt(1 - alpha / 2, df = n1 + n2 - 2)
 
   print("Check theory x1 != x2: ")
@@ -38,7 +39,8 @@ task2 <- function() {
     s_y <- sd(y)
     n_x <- length(x)
     n_y <- length(y)
-    t0 <- (mean_x - mean_y - mu0) / sqrt(s_x^2 / n_x + s_y^2 / n_y)
+    sp_square <- ((n_x - 1) * s_x^2 + (n_y - 1) * s_y^2) / (n_x + n_y - 2)
+    t0 <- (mean_x - mean_y - mu0) / sqrt(sp_square * (1 / n_x + 1 / n_y))
     t_test <- qt(1 - alpha, df = n_x + n_y - 2)
 
     print("Check theory x1 > x2: ")
@@ -60,7 +62,8 @@ task2 <- function() {
     s_y <- sd(y)
     n_x <- length(x)
     n_y <- length(y)
-    t0 <- (mean_x - mean_y - mu0) / sqrt(s_x^2 / n_x + s_y^2 / n_y)
+    sp_square <- ((n_x - 1) * s_x^2 + (n_y - 1) * s_y^2) / (n_x + n_y - 2)
+    t0 <- (mean_x - mean_y - mu0) / sqrt(sp_square * (1 / n_x + 1 / n_y))
     t_test <- -qt(1 - alpha, df = n_x + n_y - 2)
 
     print("Check theory x1 < x2: ")
@@ -90,8 +93,6 @@ task6 <- function() {
   des1 <- strtoi(des1, base = 10)
   des2 <- time$X.1
   des2 <- strtoi(des2, base = 10)
-  print(des1)
-  print(des2)
 
   test_bothsize_pair <- function(x, y, mu0, alpha) {
     n <- length(x)
@@ -106,7 +107,7 @@ task6 <- function() {
     } else {
       print("Can't reject")
     }
-    p_value <- pt(t0, df = n - 1, lower.tail = FALSE)
+    p_value <- 2 * pt(t0, df = n - 1, lower.tail = FALSE)
 
     print("P-Value: ")
     print(p_value)
@@ -139,7 +140,7 @@ task6 <- function() {
     t_test <- -qt(1 - alpha, df = n - 1)
 
     print("Check theory x1 < x2: ")
-    if (t0 < t_test) {
+    if (t0 < -t_test) {
       print("Reject")
     } else {
       print("Can't reject")
@@ -160,7 +161,7 @@ task6 <- function() {
 prop_test_leq <- function(x, y, n_x, n_y, alpha) {
   p_x <- length(x) / n_x
   p_y <- length(y) / n_y
-  p_hat <- (n_x * p_x + n_y * p_y) / (n_x + n_y)
+  p_hat <- (length(x) + length(y)) / (n_x + n_y)
   se <- sqrt((p_x * (1 - p_x) / n_x) + (p_y * (1 - p_y) / n_y))
 
   z0 <- (p_x - p_y) / sqrt(p_hat * (1 - p_hat) * (1 / n_x + 1 / n_y))
