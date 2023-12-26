@@ -33,17 +33,17 @@ int getDepth(Node* node) {
     }
 }
 
-void insertNode_BS(Node* &cur, int key) {
+void insertNodeBS(Node* &cur, int key) {
     if (!cur) {
         cur = createNode(key);
         return;
     }
 
-    if (cur->key > key) insertNode_BS(cur->left, key);
-    else insertNode_BS(cur->right, key);
+    if (cur->key > key) insertNodeBS(cur->left, key);
+    else insertNodeBS(cur->right, key);
 }
 
-void insertNode_BS_NoRecursion(Node* &root, int key) {
+void insertNodeBSIterative(Node* &root, int key) {
     Node* prev = NULL;
     Node* cur = root;
 
@@ -66,20 +66,47 @@ void insertNode_BS_NoRecursion(Node* &root, int key) {
     } else prev->right = createNode(key);
 }
 
-bool searchNode_BS(Node* cur, int key) {
+void insertNodeLevel(Node* &cur, int key) {
+    if (cur == NULL) {
+        cur = createNode(key);
+        return;
+    }
+
+    queue<Node*> q;
+    q.push(cur);
+
+    while (!q.empty()) {
+        Node* temp = q.front();
+        q.pop();
+
+        if (temp->left != NULL) q.push(temp->left);
+        else {
+            temp->left = createNode(key);
+            return;
+        }
+
+        if (temp->right != NULL) q.push(temp->right);
+        else {
+            temp->right = createNode(key);
+            return;
+        }
+    }
+}
+
+bool searchNodeBS(Node* cur, int key) {
     if (!cur) return false;
     if (cur->key == key) return true;
 
-    if (cur->key < key) return searchNode_BS(cur->left, key);
-    else return searchNode_BS(cur->right, key);
+    if (cur->key < key) return searchNodeBS(cur->left, key);
+    else return searchNodeBS(cur->right, key);
 }
 
-Node* deleteNode_BS(Node* &cur, int key) {
+Node* deleteNodeBS(Node* &cur, int key) {
     if (!cur) return NULL;
 
-    if (cur->key > key) cur->left = deleteNode_BS(cur->left, key);
+    if (cur->key > key) cur->left = deleteNodeBS(cur->left, key);
     else {
-        if (cur->key < key) cur->right = deleteNode_BS(cur->right, key);
+        if (cur->key < key) cur->right = deleteNodeBS(cur->right, key);
         else {
             if (cur->left == NULL) {
                 Node* temp = cur->right;
@@ -113,33 +140,7 @@ Node* deleteNode_BS(Node* &cur, int key) {
         }
         return cur;
     }
-}
-
-void insertNode_Level(Node* &cur, int key) {
-    if (cur == NULL) {
-        cur = createNode(key);
-        return;
-    }
-
-    queue<Node*> q;
-    q.push(cur);
-
-    while (!q.empty()) {
-        Node* temp = q.front();
-        q.pop();
-
-        if (temp->left != NULL) q.push(temp->left);
-        else {
-            temp->left = createNode(key);
-            return;
-        }
-
-        if (temp->right != NULL) q.push(temp->right);
-        else {
-            temp->right = createNode(key);
-            return;
-        }
-    }
+    return NULL;
 }
 
 void traverseLevelOrder(Node* cur) {
@@ -272,48 +273,70 @@ int getMaxValSmallerThanX(Node* cur, int target) {
     return res;
 }
 
-// int countNodes(Node* root) {
-//     if (root == NULL) return 0;
+int countNodes(Node* root) {
+    if (root == NULL) return 0;
+    return (1 + countNodes(root->left) + countNodes(root->right));
+}
 
-//     return (1 + countNodes(root->left) + countNodes(root->right));
-// }
+int getSumNode(Node* root) {
+    if (root == NULL) return 0;
+    return (root->key + getSumNode(root->left) + getSumNode(root->right));
+}
 
-// bool isComplete(Node* root, int index = 0, int number_nodes) {
-//     if (root == NULL) return true;
+bool isComplete(Node* root, int index = 0, int number_nodes = 0) {
+    if (root == NULL) return true;
 
-//     if (index >= number_nodes) return false;
+    if (index >= number_nodes) return false;
 
-//     return isComplete(root->left, 2*index + 1, number_nodes) && isComplete(root->right, 2 * index + 2, number_nodes);
+    return isComplete(root->left, 2*index + 1, number_nodes) && isComplete(root->right, 2 * index + 2, number_nodes);
 
-// }
+}
+
+float getAverageOfChildren(Node* root) {
+    float nodesSize = (float)countNodes(root);
+    float nodesSum = (float)getSumNode(root);
+
+    return nodesSum / nodesSize;
+}
+
+bool checkExist(Node* root, int k) {
+    /*
+   10
+  5 15
+2 8 13 17
+// Unique Binary Tree
+// Same Tree
+// Symmetric Tree
+// Contructs from Preodrder To Inorder
+// Exists a + b = k
+
+    */
+    Node* left = root;
+    Node* right = root;
+
+    
+}
 
 int main() {
-    Node* root = createNode(10);
-    // insertNode_BS_NoRecursion(root, 5);
-    // insertNode_BS_NoRecursion(root, 15);
-    // insertNode_BS_NoRecursion(root, 2);
-    // insertNode_BS_NoRecursion(root, 8);
-    // // insertNode_BS_NoRecursion(root, 13);
-    // insertNode_BS_NoRecursion(root, 17);
-    //cout << getMaxValSmallerThanX(root, 6);
+    Node* root;
+    const int n = 7;
+    int arr[n] = {10, 5, 15, 2, 8, 13, 17};
 
-    // insertNode_BS(root, 5);
-    // insertNode_BS(root, 15);
-    // insertNode_BS(root, 2);
-    // insertNode_BS(root, 8);
-    // insertNode_BS(root, 13);
-    // insertNode_BS(root, 17);
-    // deleteNode_BS(root, 10);
-    // cout << searchNode_BS(root, 0);
-    // cout << searchNode_BS(root, 2);
-    
-    cout << countLeafNode(root);
-    // traverseInorder(root);
-    // traverseInorderInterative(root);
-    // cout << endl;
-    // getAllPaths(root, 23);
-    // traversePreorder(root);
-    // traverseInorder(root);
-    // traversePostorder(root);
+    for (int i = 0; i < n; i++) {
+        insertNodeBS(root, arr[i]);
+    }
+    traverseInorder(root);
+    cout << endl;
+    traverseLevelOrder(root);
+    deleteNodeBS(root, 10);
+    traverseLevelOrder(root);
+    cout << searchNodeBS(root, 0) << endl;
+    cout << searchNodeBS(root, 2) << endl;    
+    cout << countLeafNode(root) << endl;
+    traversePreorder(root);
+    cout << endl;
+    traverseInorder(root);
+    cout << endl;
+    traversePostorder(root);
     return 0;
 }

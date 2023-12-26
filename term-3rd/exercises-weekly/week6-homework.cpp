@@ -13,14 +13,14 @@ struct Node {
 };
 
 template<class KeyType, class ItemType>
-struct Hash {
+struct HashTable {
     int itemCount;
     int hashTableSize;
     Node<KeyType, ItemType> **hashTable;
 };
 
 template <class KeyType, class ItemType>
-void initHash(Hash<KeyType, ItemType>& h) {
+void initHash(HashTable<KeyType, ItemType>& h) {
     h.itemCount = 0;
     h.hashTableSize = DEFAULT_SIZE;
     h.hashTable = new Node<KeyType, ItemType>*[DEFAULT_SIZE];
@@ -30,7 +30,7 @@ void initHash(Hash<KeyType, ItemType>& h) {
 };
 
 template <class KeyType, class ItemType>
-int hashFunc(KeyType x, Hash<KeyType, ItemType> h) {
+int hashFunc(KeyType x, HashTable<KeyType, ItemType> h) {
     int res = 0;
     for (auto ch: x) {
         res += int(ch - 'A');
@@ -39,7 +39,7 @@ int hashFunc(KeyType x, Hash<KeyType, ItemType> h) {
 }
 
 template <class KeyType, class ItemType>
-void addItem(Hash<KeyType, ItemType> &h, const ItemType& newItem, const KeyType& searchKey) {
+void addItem(HashTable<KeyType, ItemType> &h, const ItemType& newItem, const KeyType& searchKey) {
     Node<KeyType, ItemType>* newNode = new Node<KeyType, ItemType>;
     newNode->key = searchKey;
     newNode->item = newItem;
@@ -52,7 +52,7 @@ void addItem(Hash<KeyType, ItemType> &h, const ItemType& newItem, const KeyType&
 }
 
 template <class KeyType, class ItemType>
-void removeItem(Hash<KeyType, ItemType> &h, const KeyType& searchKey) {
+void removeItem(HashTable<KeyType, ItemType> &h, const KeyType& searchKey) {
     int hashIdx = hashFunc(searchKey, h);
     Node<KeyType, ItemType>* cur = h.hashTable[hashIdx];
     Node<KeyType, ItemType>* prev = nullptr;
@@ -77,7 +77,7 @@ void removeItem(Hash<KeyType, ItemType> &h, const KeyType& searchKey) {
 }
 
 template <class KeyType, class ItemType>
-void displayDictionary(Hash<KeyType, ItemType> h) {
+void displayDictionary(HashTable<KeyType, ItemType> h) {
     for (int idx = 0; idx < h.hashTableSize; idx++) {
         Node<KeyType, ItemType>* cur = h.hashTable[idx];
 
@@ -92,7 +92,7 @@ void displayDictionary(Hash<KeyType, ItemType> h) {
 }
 
 int main() {
-    Hash<string, string> h;
+    HashTable<string, string> h;
     initHash(h);
     addItem<string, string>(h, "A dangerous fish.", "Shark");
     addItem<string, string>(h, "A fish that lives in saltwater.", "Shark"); 

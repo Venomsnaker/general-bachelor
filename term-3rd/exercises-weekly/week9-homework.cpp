@@ -34,6 +34,7 @@ vector<int> graphBFS(vector<pair<int, int>> adj_list[])
     vertices_seen.push(0);
     vertices_res.push_back(0);
 
+
     while (!vertices_seen.empty())
     {
         int cur = vertices_seen.front();
@@ -208,7 +209,7 @@ int main() {
         switch (options)
         {
         case 1: {
-            constructGraphFromTxt("graph.txt", adj_list, v);
+            constructGraphFromTxt("graph3.txt", adj_list, v);
             break;
         }
         case 2: {

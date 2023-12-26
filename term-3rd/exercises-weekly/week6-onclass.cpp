@@ -5,17 +5,17 @@ using namespace std;
 static const int HASH_TABLE_SIZE = 13;
 
 struct Hash {
-    int countSlots;
+    int hashTableSize;
     list<int> *table;
 };
 
 void createHash(Hash &h, int countSlots) {
-    h.countSlots = countSlots;
+    h.hashTableSize = countSlots;
     h.table = new list<int>[countSlots];
 }
 
 int hashFunc(Hash h, int x) {
-    return (x % h.countSlots);
+    return (x % h.hashTableSize);
 }
 
 void insertItem(Hash &h, int key) {
@@ -35,7 +35,7 @@ void deleteItem(Hash h, int key) {
 }
 
 void displayHash(Hash h) {
-    for (int i = 0; i < h.countSlots; i++) {
+    for (int i = 0; i < h.hashTableSize; i++) {
         cout << i;
         for (auto key: h.table[i]) cout << " -> " << key;
         cout << endl;

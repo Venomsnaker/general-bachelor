@@ -10,6 +10,7 @@ void printVector(vector<int> nums)
         cout << nums[i] << " ";
     }
     cout << endl;
+    return;
 }
 
 void sortBubble(vector<int> &nums)
@@ -28,6 +29,7 @@ void sortBubble(vector<int> &nums)
             }
         }
     }
+    return;
 }
 
 void sortSelection(vector<int> &nums)
@@ -51,6 +53,7 @@ void sortSelection(vector<int> &nums)
             swap(nums[idx], nums[i]);
         }
     }
+    return;
 }
 
 void sortInsertation(vector<int> &nums)
@@ -71,17 +74,22 @@ void sortInsertation(vector<int> &nums)
         }
         nums[j + 1] = key;
     }
+    return;
 }
 
 void sortShell(vector<int> &nums) {
+    // Time Complexity: O(nlog(n)^2)
+    // Space Complexity: O(1)
     int n = nums.size();
 
     for (int gap = n / 2; gap > 0; gap /= 2) {
-        for (int i = gap; i < n; i+=1) {
+        for (int i = gap; i < n; i++) {
             int temp = nums[i];
 
             int j;
-            for (j = i; j >= gap && nums[j-gap] > temp; j -= gap) nums[j] = nums[i - gap];
+            for (j = i; j >= gap && nums[j-gap] > temp; j -= gap) {
+                nums[j] = nums[j - gap];
+            }
             nums[j] = temp;
         }
     }
@@ -144,6 +152,7 @@ void sortMerge(vector<int> &nums, int l, int r)
     sortMerge(nums, l, m);
     sortMerge(nums, m + 1, r);
     merge(nums, l, m, r);
+    return;
 }
 
 void heapify(vector<int> &nums, int n, int i)
@@ -180,6 +189,7 @@ void sortHeap(vector<int> &nums)
         swap(nums[0], nums[i]);
         heapify(nums, i, 0);
     }
+    return;
 }
 
 int partition(vector<int> &nums, int l, int r)
@@ -249,13 +259,14 @@ void countSort(vector<int> &nums, int n, int exp)
         count[(nums[i] / exp) % 10]--;
     }
 
+    // Match output with the original array
     for (int i = 0; i < n; i++)
         nums[i] = output[i];
 }
 
 void sortRadix(vector<int> &nums, int n)
 {
-    // Time Complexity: O(n * k)
+    // Time Complexity: O(nk)
     // Space Complexity: O(n + k)
     int max = getMax(nums, n);
 
@@ -267,7 +278,9 @@ int main()
 {
     vector<int> nums = {2, 3, 6, 4, 5, 2, 8, 7, 9, 1};
     printVector(nums);
-    sortShell(nums);
+    // sortHeap(nums);
+    // sortMerge(nums, 0, nums.size() - 1);
+    sortRadix(nums, nums.size());
     printVector(nums);
     return 0;
 }
