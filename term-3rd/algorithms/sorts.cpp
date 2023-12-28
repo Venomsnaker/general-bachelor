@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <time.h>
 using namespace std;
 
 void printVector(vector<int> nums)
@@ -278,9 +279,14 @@ int main()
 {
     vector<int> nums = {2, 3, 6, 4, 5, 2, 8, 7, 9, 1};
     printVector(nums);
+    clock_t start, end;
+    start = clock();
     // sortHeap(nums);
     // sortMerge(nums, 0, nums.size() - 1);
     sortRadix(nums, nums.size());
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     printVector(nums);
+    cout << time_taken << endl;
     return 0;
 }

@@ -295,26 +295,7 @@ bool isComplete(Node* root, int index = 0, int number_nodes = 0) {
 float getAverageOfChildren(Node* root) {
     float nodesSize = (float)countNodes(root);
     float nodesSum = (float)getSumNode(root);
-
     return nodesSum / nodesSize;
-}
-
-bool checkExist(Node* root, int k) {
-    /*
-   10
-  5 15
-2 8 13 17
-// Unique Binary Tree
-// Same Tree
-// Symmetric Tree
-// Contructs from Preodrder To Inorder
-// Exists a + b = k
-
-    */
-    Node* left = root;
-    Node* right = root;
-
-    
 }
 
 int main() {
