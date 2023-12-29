@@ -1,6 +1,5 @@
 #include <iostream>
 #include <list>
-#include <cstring>
 using namespace std;
 
 static const int DEFAULT_SIZE = 101;
