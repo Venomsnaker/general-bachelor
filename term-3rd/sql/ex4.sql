@@ -1,3 +1,0 @@
-SELECT *
-FROM customers
-WHERE birth_date BETWEEN '1990/01/01' AND '2020/01/01'
