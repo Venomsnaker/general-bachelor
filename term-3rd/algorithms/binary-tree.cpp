@@ -230,7 +230,7 @@ void traversePostorder(Node* cur) {
 void findPaths(Node* curr, int sum, string &path) {
     if (!curr) return;
 
-    string currKey = to_string(curr->key);
+    string currKey = string(curr->key);
     path += currKey + " ";
 
     if (!(curr->left) && !(curr->right) && sum == curr->key) {

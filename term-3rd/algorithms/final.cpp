@@ -10,7 +10,7 @@ void sortString() {
     for (int i = 0; i < s.size(); i++) {
         int cur = i;
 
-        for (int j = 0; j < s.size(); j++) {
+        for (int j = i; j < s.size(); j++) {
             if (s[j] < s[cur]) cur = j;
         }
         if (cur != i) swap(s[i], s[cur]);
