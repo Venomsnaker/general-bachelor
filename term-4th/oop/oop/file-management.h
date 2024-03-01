@@ -1,17 +1,15 @@
 #ifndef FILE_MANAGEMENT
 #define FILE_MANAGEMENT
 
-#include<string>
-using namespace std;
 
-void createFile(string file_name, string file_contents);
+void createFile(const char* file_name, const char* file_contents);
 
-void printFile(string file_path);
+void printFile(const char* file_path);
 
-void deleteFile(string file_name);
+void deleteFile(const char* file_path);
 
-void changeFileName(string file_name, string file_name_new);
+void renameFile(const char* file_name, const char* file_name_new);
 
-void copyFile(string file_name_source, string file_name_dest);
+void copyFile(const char* file_name_source, const char* file_name_dest);
 
 #endif
