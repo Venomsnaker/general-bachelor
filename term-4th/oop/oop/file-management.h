@@ -1,7 +1,6 @@
 #ifndef FILE_MANAGEMENT
 #define FILE_MANAGEMENT
 
-
 void createFile(const char* file_name, const char* file_contents);
 
 void printFile(const char* file_path);

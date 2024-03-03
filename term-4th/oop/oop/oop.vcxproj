@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="file-management.cpp" />
+    <ClCompile Include="large-number.cpp" />
     <ClCompile Include="oop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file-management.h" />
+    <ClInclude Include="large-number.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

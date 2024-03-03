@@ -21,10 +21,16 @@
     <ClCompile Include="file-management.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="large-number.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file-management.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="large-number.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
