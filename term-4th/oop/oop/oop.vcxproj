@@ -130,10 +130,12 @@
     <ClCompile Include="file-management.cpp" />
     <ClCompile Include="large-number.cpp" />
     <ClCompile Include="oop.cpp" />
+    <ClCompile Include="triangles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file-management.h" />
     <ClInclude Include="large-number.h" />
+    <ClInclude Include="triangles.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

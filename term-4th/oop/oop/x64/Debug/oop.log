@@ -1,13 +1,5 @@
-﻿  large-number.cpp
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(11,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(11,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(27,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(27,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(53,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(53,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(73,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(73,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projects\general-bachelor\term-4th\oop\oop\large-number.cpp(98,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  oop.cpp
+﻿  oop.cpp
+  triangles.cpp
+D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(11,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
   Generating Code...
   oop.vcxproj -> D:\Projects\general-bachelor\term-4th\oop\x64\Debug\oop.exe
