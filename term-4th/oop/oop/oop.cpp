@@ -1,6 +1,7 @@
 #include "file-management.h"
 #include "large-number.h"
 #include "triangles.h"
+#include "fraction.h"
 #include <cstring>
 #include <algorithm>
 #include <iostream>
@@ -19,8 +20,14 @@ int main()
 	diffLargeNumbers("123", "456");
 	multiplyLargeNumbers("123", "456");*/
 
-	pair<int, int> p1 = { 1,1 }, p2 = { 2,2 }, p3 = { 3,3 };
+	//pair<int, int> p1 = { 1,1 }, p2 = { 2,2 }, p3 = { 3,3 };
 	//isTriangles(p1, p2, p3);
-	getTriangleType(p1, p2, p3);
+	//getTriangleType(p1, p2, p3);
+	Fraction f1, f2, f3;
+	f1.Initialize(4, 7);
+	f2.Initialize(6);
+	f2.Output();
+	delete(f3);
+	return 0;
 }
 

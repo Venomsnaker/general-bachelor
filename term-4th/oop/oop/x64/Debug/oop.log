@@ -1,5 +1,15 @@
-﻿  oop.cpp
+﻿  fraction.cpp
+D:\Projects\general-bachelor\term-4th\oop\oop\fraction.cpp(69,82): error C2143: syntax error: missing ')' before ';'
+  oop.cpp
   triangles.cpp
 D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(11,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(44,32): error C2561: 'getTriangleRadius': function must return a value
+  D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(43,7):
+  see declaration of 'getTriangleRadius'
+  
+D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(50,32): error C2561: 'getTriangleArea': function must return a value
+  D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(49,7):
+  see declaration of 'getTriangleArea'
+  
+D:\Projects\general-bachelor\term-4th\oop\oop\triangles.cpp(51,13): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
   Generating Code...
-  oop.vcxproj -> D:\Projects\general-bachelor\term-4th\oop\x64\Debug\oop.exe

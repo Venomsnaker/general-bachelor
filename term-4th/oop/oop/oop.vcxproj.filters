@@ -27,6 +27,12 @@
     <ClCompile Include="triangles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fraction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mono.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file-management.h">
@@ -36,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="triangles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fraction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mono.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
