@@ -1,0 +1,5 @@
+﻿  main.cpp
+  monominal.cpp
+D:\Projects\general-bachelor\term-4th\oop\polyminal\monominal.cpp(63,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+  polyminal.vcxproj -> D:\Projects\general-bachelor\term-4th\oop\x64\Debug\polyminal.exe
