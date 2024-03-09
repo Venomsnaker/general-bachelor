@@ -1,0 +1,4 @@
+﻿  triangles.cpp
+D:\Projects\general-bachelor\term-4th\oop\triangles\triangles.cpp(9,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Projects\general-bachelor\term-4th\oop\triangles\triangles.cpp(133,15): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  triangles.vcxproj -> D:\Projects\general-bachelor\term-4th\oop\x64\Debug\triangles.exe

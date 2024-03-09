@@ -17,7 +17,6 @@ public:
 
 	void Input();
 	void Output();
-	void WriteToFile();
 
 	float GetCoef();
 	int GetPower();
