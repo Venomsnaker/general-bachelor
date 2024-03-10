@@ -4,13 +4,13 @@
 class Monominal {
 private:
 	float coef;
-	int power;
+	int exponent;
 
 public:
 	void Initialize();
-	void Initialize(float coef, int power);
+	void Initialize(float coef, int exponent);
 	void Initialize(float coef);
-	void Initialize(int power);
+	void Initialize(int exponent);
 	void Initialize(Monominal);
 	
 	void Delete();
@@ -19,10 +19,10 @@ public:
 	void Output();
 
 	float GetCoef();
-	int GetPower();
+	int GetExponent();
 
 	void SetCoef(float coef);
-	void SetPower(int power);
+	void SetExponent(int exponent);
 
 	int CalculateMonomnal(int var);
 	Monominal AddMonominal(Monominal m);
