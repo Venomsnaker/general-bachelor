@@ -151,6 +151,20 @@ string Number::GetProduct(string num2) {
 	return s;
 }
 
-string Number::GetDivision(string n) {
+string Number::GetDivision(int divisor) {
+	string res;
+	int idx = 0;
+	int temp = num[idx] - '0';
 
+	while (idx < (num.size() - 1) && temp < divisor) {
+		temp = temp * 10 + num[idx++] - '0';
+	}
+
+	while ((num.size() - 1) > idx) {
+		res += (temp / divisor) + '0';
+		temp = (temp % divisor) * 10 + num[idx++] - '0';
+	}
+
+	if (res.size() == 0) return "0";
+	return res;
 }

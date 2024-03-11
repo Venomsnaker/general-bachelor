@@ -1,10 +1,10 @@
-#include "triangles.h"
+#include "triangle.h"
 #include <iostream>
 using namespace std;
 
 int main()
 {
-    Triangles t;
+    Triangle t;
     t.SetP1({ 0, 0 });
     t.SetP2({ 1, 0 });
     t.SetP3({ 0, 1 });

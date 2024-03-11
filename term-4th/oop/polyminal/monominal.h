@@ -1,6 +1,8 @@
 #ifndef  MONOMINAL
 #define MONIMINAL
 
+#include <vector>
+
 class Monominal {
 private:
 	float coef;

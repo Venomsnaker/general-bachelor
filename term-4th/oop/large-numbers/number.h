@@ -23,7 +23,7 @@ public:
 	string GetSum(string);
 	string GetDiff(string);
 	string GetProduct(string);
-	string GetDivision(string);
+	string GetDivision(int);
 };
 
 #endif // !NUMBER
