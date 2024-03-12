@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 int countUniqueBruteForce(int arr[], int n) {
@@ -35,23 +37,33 @@ int countUniqueSorting(int arr[], int n) {
 int countUniqueHashmap(int arr[], int n) {
     // Time Complexity: O(n)
     // Space Complexity: O(n)
-    const int n_const = n;
-    int temp[n_const];
-    int res = 0;
-
-    for (int i = 0; i < n; i++) {
-        temp[arr[i] - '0']++;
-    }
-    for (int j = 0; j < n; j++) {
-        if (temp[j] > 0) res++;
-    }
-    return res;
+    unordered_map<int, int> temp;
+    for (int i = 0; i < n; i++) temp[arr[i]]++;
+    return temp.size();
 }
 
-int main() {
-    const int n = 10;
-    int arr[] = {1, 2, 3, 3, 7, 4, 1, 9, 11, 3}; 
+int getMaxDiff(vector<int> arr) {
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+    if (arr.size() < 2) return -1;
+    int top = arr[0];
+    int bottom = arr[0];
+    int maxProfit = 0;
 
-    cout << countUniqueHashmap(arr, n) << endl;
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] > top) {
+            top = arr[i];
+            maxProfit = max(top - bottom, maxProfit);
+        } else if (arr[i] < bottom) {
+            bottom = arr[i];
+            top = arr[i];
+        }
+    }
+    return maxProfit;
+}
+ 
+int main() {
+    vector<int> arr = {1, 2, 3, 4, 10};
+    cout << getMaxDiff(arr) << endl;
     return 0;
 }
