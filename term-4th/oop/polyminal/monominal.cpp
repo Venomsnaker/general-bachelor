@@ -3,34 +3,27 @@
 #include <math.h>
 using namespace std;
 
-void Monominal::Initialize() {
+Monominal::Monominal() {
 	this->coef = 1;
 	this->exponent = 1;
 }
 
-void Monominal::Initialize(float coef, int exponent) {
+Monominal::Monominal(float coef, int exponent) {
 	this->coef = coef;
 	this->exponent = exponent;
 }
 
-void Monominal::Initialize(float coef) {
+Monominal::Monominal(float coef) {
 	this->coef = coef;
 	this->exponent = 1;
 }
 
-void Monominal::Initialize(int exponent) {
+Monominal::Monominal(int exponent) {
 	this->coef = 1;
 	this->exponent = exponent;
 }
 
-void Monominal::Initialize(Monominal m) {
-	this->coef = m.GetCoef();
-	this->exponent = m.GetExponent();
-}
-
-void Monominal::Delete() {
-	cout << "No data allocation." << endl;
-}
+Monominal::~Monominal() {}
 
 void Monominal::Input() {
 	cout << "Input coef: ";
@@ -66,7 +59,6 @@ int Monominal::CalculateMonomnal(int var) {
 
 Monominal Monominal::AddMonominal(Monominal m) {
 	Monominal res;
-	res.Initialize();
 
 	if (this->exponent != m.GetExponent()) {
 		cout << "The monominals don't have the same exponent." << endl;
@@ -79,7 +71,6 @@ Monominal Monominal::AddMonominal(Monominal m) {
 
 Monominal Monominal::SubstractMonominal(Monominal m) {
 	Monominal res;
-	res.Initialize();
 
 	if (this->exponent != m.GetExponent()) {
 		cout << "The monominals don't have the same exponent." << endl;
@@ -92,7 +83,6 @@ Monominal Monominal::SubstractMonominal(Monominal m) {
 
 Monominal Monominal::MultiplyMonominal(Monominal m) {
 	Monominal res;
-	res.Initialize();
 
 	res.SetCoef(this->coef * m.GetCoef());
 	res.SetExponent(this->exponent + m.GetExponent());
@@ -101,10 +91,39 @@ Monominal Monominal::MultiplyMonominal(Monominal m) {
 
 Monominal Monominal::DivideMonominal(Monominal m) {
 	Monominal res;
-	res.Initialize();
 
 	res.SetCoef(this->coef / m.GetCoef());
 	res.SetExponent(this->exponent - m.GetExponent());
 	return res;
+
+}
+
+Polynominal::Polynominal() {
+	polyp = {};
+}
+
+Polynominal::~Polynominal() {
+	cout << "No data allocation." << endl;
+}
+
+void Polynominal::Input() {
+	static Monominal polyp_new[99];
+	int idx = 0;
+	bool done = false;
+	
+	cout << "Input polynominal:" << endl;
+	while (!done) {
+		Monominal m;
+		cout << "Input monominal:" << endl;
+		m.Input();
+		polyp_new[idx++] = m;
+		cout << "Done ? (0/1)" << endl;
+		cin >> done;
+	}
+	this->size = idx;
+	this->polyp = polyp_new;
+}
+
+void Polynominal::Output() {
 
 }

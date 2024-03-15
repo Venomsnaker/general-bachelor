@@ -9,13 +9,12 @@ private:
 	int exponent;
 
 public:
-	void Initialize();
-	void Initialize(float coef, int exponent);
-	void Initialize(float coef);
-	void Initialize(int exponent);
-	void Initialize(Monominal);
-	
-	void Delete();
+	Monominal();
+	Monominal(float coef, int exponent);
+	Monominal(float coef);
+	Monominal(int exponent);
+
+	~Monominal();
 
 	void Input();
 	void Output();
@@ -31,6 +30,19 @@ public:
 	Monominal SubstractMonominal(Monominal m);
 	Monominal MultiplyMonominal(Monominal m);
 	Monominal DivideMonominal(Monominal m);
+};
+
+class Polynominal {
+private:
+	Monominal* polyp;
+	int size;
+
+public:
+	Polynominal();
+	~Polynominal();
+
+	void Input();
+	void Output();
 };
 
 #endif // ! MONOMINAL

@@ -3,16 +3,11 @@
 using namespace std;
 
 int main() {
-	Monominal m1, m2, m3, m4;
-	m1.Initialize(2, 3);
-	m2.Initialize(3, 3);
-	m3.Initialize(4, 2);
+	Monominal m1(2, 3), m2 (3, 2), m3 (4, 2), m4;
 	m1.Output();
 	m2.Output();
 	m3.Output();
-
 	cout << endl;
-	m4.Initialize();
 
 	m4 = m1.AddMonominal(m2);
 	cout << "Add" << endl;
