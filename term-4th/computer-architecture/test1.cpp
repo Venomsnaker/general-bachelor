@@ -122,6 +122,25 @@ bool *DTBTwoComplement(int num) {
     return num_binary;
 }
 
+char* Hexa(bool *num) {
+    const int n = 8;
+    char dict[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    static char res[2];
+
+    for (int i = 7; i >= 0;) {
+        int tmp = 0;
+
+        for (int j = 0; j <= 3; j++) {
+            tmp += num[i-j] * pow(2, j);
+        }
+        if (i > 4) res[1] = dict[tmp];
+        else res[0] = dict[tmp];
+        i -= 4;
+    }
+    cout << res[0] << res[1] << endl;
+    return res;
+}
+
 int main() {
     int num;
     cout << "Input: ";
@@ -133,5 +152,6 @@ int main() {
     cout << "Ouput c: ";
     bool* num_binary_3 = DTBTwoComplement(num);
     cout << "Hexadecimal: ";
+    char* hex = Hexa(num_binary_3);
 }
 
