@@ -24,7 +24,7 @@
     <ProjectGuid>{bb2e5412-93cd-4783-af04-8fcd3980f6f8}</ProjectGuid>
     <RootNamespace>polyminal</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>monominal</ProjectName>
+    <ProjectName>monomial</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -129,10 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="monominal.cpp" />
+    <ClCompile Include="polynomial.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="monominal.h" />
+    <ClInclude Include="polynomial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
