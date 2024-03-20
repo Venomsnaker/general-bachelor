@@ -1,5 +1,5 @@
-#ifndef  MONOMIAL
-#define MONOMIAL
+#ifndef  POLYNOMIAL
+#define POLYNOMIAL
 
 #include <vector>
 
@@ -50,10 +50,9 @@ public:
 
 	Polynomial AddPolynomial(Polynomial p, int size);
 	Polynomial SubstractPolynomial(Polynomial p, int size);
-	Polynomial MultiplyPolynomial(Polynomial p);
 };
 
-#endif // ! MONOMIAL
+#endif // ! POLYNOMIAL
 
 
 
