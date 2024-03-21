@@ -1,6 +1,9 @@
 #ifndef FRACTION
 #define FRACTION
 
+#include <iostream>
+using namespace std;
+
 class Fraction {
 private:
 	int numerator;
@@ -10,6 +13,7 @@ public:
 	Fraction();
 	Fraction(int, int);
 	Fraction(int);
+	Fraction(const Fraction&);
 	~Fraction();
 
 	int GetNumerator();
@@ -24,7 +28,8 @@ public:
 	Fraction operator/(const Fraction&);
 	Fraction& operator++();
 	Fraction operator++(int);
-	
+
+	friend ostream& operator<<(ostream& os, Fraction& f);
 };
 
 #endif // !FRACTION

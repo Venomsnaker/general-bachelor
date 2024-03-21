@@ -17,6 +17,11 @@ Fraction::Fraction(int n) {
 	denominator = 1;
 }
 
+Fraction::Fraction(const Fraction& f) {
+	numerator = f.numerator;
+	denominator = f.denominator;
+}
+
 Fraction::~Fraction() {
 	cout << "No data allocation." << endl;
 }
@@ -64,3 +69,21 @@ Fraction Fraction::operator/(const Fraction& f) {
 	res.denominator = f.numerator * denominator;
 	return res;
 }
+
+Fraction& Fraction::operator++() {
+	numerator += denominator;
+	return *this;
+}
+
+Fraction Fraction::operator++(int) {
+	Fraction res = *this;
+	numerator += denominator;
+	return numerator;
+}
+
+ostream& operator<<(ostream& os, Fraction& f) {
+	os << f.GetNumerator() << "/" << f.GetDenominator() << endl;
+	return os;
+}
+
+
