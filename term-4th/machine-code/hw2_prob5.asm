@@ -11,11 +11,12 @@ li $t0, 0 #sum
 li $t1, 0 #index
 la $t2, array #array address
 lw $t3, _N #length
+li $t5, 4 # word == 4 bytes
 
 addi $t3, $t3, -1
 loop:
 bgt $t1, $t3, exit
-mul $t4, $t1, 4 #word==4 bytes
+mul $t4, $t1, $t5
 add $t4, $t2, $t4
 lw $t4, 0($t4)
 add $t0, $t0, $t4
@@ -29,4 +30,3 @@ syscall
 li $v0, 1 #int
 addi $a0,$t0,0
 syscall
-	
